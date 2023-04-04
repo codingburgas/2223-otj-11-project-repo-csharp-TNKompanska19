@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using TimeCo.Models;
+using TimeCo.DAL.Entities;
 
-namespace TimeCo.Data;
+namespace TimeCo.DAL.Data;
 
 public partial class TimeCoContext : DbContext
 {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TimeCo.Models;
+namespace TimeCo.DAL.Entities;
 
 public partial class Schedule
 {

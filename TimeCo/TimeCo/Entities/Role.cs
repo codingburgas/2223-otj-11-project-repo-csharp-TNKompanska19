@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace TimeCo.Models;
+namespace TimeCo.DAL.Entities;
 
-public partial class Department
+public partial class Role
 {
     [Key]
     public int Id { get; set; }
@@ -19,6 +19,6 @@ public partial class Department
     [Unicode(false)]
     public string Description { get; set; } = null!;
 
-    [InverseProperty("Department")]
+    [InverseProperty("Role")]
     public virtual ICollection<User> Users { get; } = new List<User>();
 }
