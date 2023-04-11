@@ -35,6 +35,8 @@ public partial class User
 
     public DateTime ModifiedAt { get; set; }
 
+    public double MainVacationHours { get; set; }
+
     [Column("RoleID")]
     public int RoleId { get; set; }
 

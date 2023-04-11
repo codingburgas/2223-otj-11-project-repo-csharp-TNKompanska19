@@ -24,5 +24,27 @@ namespace TimeCo.Utilities
         {
             return DateTime.Now;
         }
+
+        public static string GetDayOfWeek(DateTime date)
+        {
+            return date.ToString("dddd");
+        }
+
+        public static double GetDaysVacation(DateTime startDate, DateTime endDate)
+        {
+            int counter = 0;
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                if (GetDayOfWeek(date) == "Saturday" || GetDayOfWeek(date) == "Sunday")
+                {
+                    counter++;
+                }
+            }
+
+            TimeSpan timeSpan = endDate - startDate;
+            return timeSpan.Days + 1 - counter;
+        }
     }
 }
+

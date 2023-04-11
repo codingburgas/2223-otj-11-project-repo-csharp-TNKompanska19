@@ -17,6 +17,7 @@ namespace TimeCo.DAL.Repositories
 
             return context.Users.Select(x => x).ToList();
         }
+
         public static User GetUser(string username)
         {
             using TimeCoContext context = new TimeCoContext();
@@ -50,6 +51,15 @@ namespace TimeCo.DAL.Repositories
 
             context.SaveChanges();
 
+        }
+
+        public static void UpdateUser(User user)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            context.Users.Update(user);
+
+            context.SaveChanges();
         }
     }
 }

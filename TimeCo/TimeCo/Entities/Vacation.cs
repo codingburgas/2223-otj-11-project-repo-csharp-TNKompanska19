@@ -27,12 +27,8 @@ public partial class Vacation
 
     public DateTime EndDate { get; set; }
 
-    public double MainVacationHours { get; set; }
-
-    public double TimeForTimeHours { get; set; }
-
-    [Column("isTimeForTime")]
-    public bool IsTimeForTime { get; set; }
+    [Column("isMainVacation")]
+    public bool isMainVacation { get; set; }
 
     [Column("userID")]
     public int UserId { get; set; }

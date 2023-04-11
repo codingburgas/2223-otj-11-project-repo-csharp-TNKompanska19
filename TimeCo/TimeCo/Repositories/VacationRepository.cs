@@ -21,5 +21,15 @@ namespace TimeCo.DAL.Repositories
 
             return context.Vacations.Where(x => x.UserId == user.Id).FirstOrDefault();
         }
+
+        public static void AddVacation(Vacation vacation)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            context.Vacations.Add(vacation);
+
+            context.SaveChanges();
+        }
+
     }
 }

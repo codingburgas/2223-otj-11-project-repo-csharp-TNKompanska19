@@ -21,6 +21,23 @@ namespace TimeCo.BLL.Services
             }*/
         }
 
+        public static void GetUser(string username)
+        {
+            User user = UserRepository.GetUser(username);
+
+            //Console.WriteLine($"Username: {user.Username}");
+        }
+
+        public static void GetAllAdmins()
+        {
+            List<User> adminList = UserRepository.GetAllAdmins();
+
+            /*foreach (User user in adminList)
+            {
+                Console.WriteLine($"ID: {user.Id}, Username: {user.Username}, Email: {user.Email}");
+            }*/
+        }
+
         public static void MakeUserAnAdmin(string username)
         {
 
