@@ -6,18 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeCo.DAL.Entities;
 using TimeCo.DAL.Data;
+using TimeCo.DAL.Entities;
+using TimeCo.DAL.Data;
 
 namespace TimeCo.DAL.Repositories
 {
-    internal class VacationRepository
+    public class VacationRepository
     {
-        //public static Vacation MapToVacation(SqlDataReader reader)
-        //{
-        //    using TimeCoContext context = new();
+        public static Vacation GetUserVacation(string username)
+        {
+            using TimeCoContext context = new TimeCoContext();
 
-        //    context.Dispose();
+            User user = UserRepository.GetUser(username);
 
-        //    return context;
-        //}
+            return context.Vacations.Where(x => x.UserId == user.Id).FirstOrDefault();
+        }
     }
 }

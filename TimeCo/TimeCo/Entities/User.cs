@@ -35,8 +35,6 @@ public partial class User
 
     public DateTime ModifiedAt { get; set; }
 
-    public int ModifiedBy { get; set; }
-
     [Column("RoleID")]
     public int RoleId { get; set; }
 
@@ -46,13 +44,6 @@ public partial class User
     [ForeignKey("DepartmentId")]
     [InverseProperty("Users")]
     public virtual Department Department { get; set; } = null!;
-
-    [InverseProperty("ModifiedByNavigation")]
-    public virtual ICollection<User> InverseModifiedByNavigation { get; } = new List<User>();
-
-    [ForeignKey("ModifiedBy")]
-    [InverseProperty("InverseModifiedByNavigation")]
-    public virtual User ModifiedByNavigation { get; set; } = null!;
 
     [ForeignKey("RoleId")]
     [InverseProperty("Users")]
