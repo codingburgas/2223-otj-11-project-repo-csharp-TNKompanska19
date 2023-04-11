@@ -11,7 +11,7 @@ namespace TimeCo.DAL.Repositories
 {
     public class UserRepository
     {
-        public static List<User> GetUsers()
+        public static List<User> GetAllUsers()
         {
             using TimeCoContext context = new TimeCoContext();
 
@@ -22,6 +22,34 @@ namespace TimeCo.DAL.Repositories
             using TimeCoContext context = new TimeCoContext();
 
             return context.Users.Where(x => x.Username == username).FirstOrDefault();
+        }
+
+        public static List<User> GetAllAdmins()
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            var role = context.Roles.FirstOrDefault(role => role.Name == "Admin");
+
+            return context.Users.Where(x => x.RoleId == role.Id).ToList();
+        }
+
+        public static void AddUser(User user)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            context.Users.Add(user);
+
+            context.SaveChanges();
+        }
+
+        public static void MakeUserAnAdmin(User user)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            context.Users.Update(user);
+
+            context.SaveChanges();
+
         }
     }
 }

@@ -10,7 +10,9 @@ namespace test
             //TimeCo.BLL.Services.DepartmentService.AddDepartment("Software engineering", "new department");
             //TimeCo.BLL.Services.DepartmentService.UpdateDepartment("Software engineering", "Computer Science", "edited department");
 
-            TimeCo.BLL.Services.ScheduleService.AddUserSchedule("first", "10-04-2023", "14-04-2023", "8:00", "16:00", "tnkompanska19");
+            //TimeCo.BLL.Services.ScheduleService.AddUserSchedule("first", "10-04-2023", "14-04-2023", "8:00", "16:00", "tnkompanska19");
+
+            TimeCo.BLL.Services.UserService.AddUser("nikolay", "kompanski", "nkompanski@abv.bg", "neshto2", "nkompanski", "engineering");
         }
     }
 }

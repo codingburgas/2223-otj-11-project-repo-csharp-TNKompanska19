@@ -19,5 +19,10 @@ namespace TimeCo.Utilities
             TimeSpan time = TimeSpan.ParseExact(timeString, "h\\:mm", null);
             return time;
         }
+
+        public static DateTime GetCurrentTime()
+        {
+            return DateTime.Now;
+        }
     }
 }
