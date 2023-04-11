@@ -51,7 +51,6 @@ namespace TimeCo.BLL.Services
                 department.Name = editedName;
                 department.Description = editedDescription;
             }
-
             DepartmentRepository.UpdateDepartment(department);
         }
     }
