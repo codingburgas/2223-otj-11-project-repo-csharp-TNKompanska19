@@ -27,6 +27,22 @@ namespace TimeCo.DAL.Repositories
             return context.Departments.Where(x => x.Id == user.DepartmentId).FirstOrDefault();
         }
 
+        public static void AddDepartment(Department department)
+        {
+            using TimeCoContext context = new TimeCoContext();
 
+            context.Departments.Add(department);
+
+            context.SaveChanges();
+        }
+
+        public static void UpdateDepartment(Department department)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            context.Departments.Update(department);
+
+            context.SaveChanges();
+        }
     }
 }
