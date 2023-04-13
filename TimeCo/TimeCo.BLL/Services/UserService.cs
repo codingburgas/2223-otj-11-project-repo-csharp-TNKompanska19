@@ -76,5 +76,19 @@ namespace TimeCo.BLL.Services
 
             UserRepository.AddUser(user);
         }
+
+        public static bool checkUser (string username, string password)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            List<User> users = UserRepository.GetAllUsers();
+
+            foreach (var user in users)
+            {
+                if (user.Username == username && user.Password == password) return true;
+            }
+
+            return false;
+        }
     }
 }
