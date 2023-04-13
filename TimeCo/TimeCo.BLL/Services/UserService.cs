@@ -69,6 +69,7 @@ namespace TimeCo.BLL.Services
                 Username = username,
                 CreatedAt = TimeCo.Utilities.Converter.GetCurrentTime(),
                 ModifiedAt = TimeCo.Utilities.Converter.GetCurrentTime(),
+                MainVacationHours = 200,
                 RoleId = role.Id,
                 DepartmentId = department.Id
             };

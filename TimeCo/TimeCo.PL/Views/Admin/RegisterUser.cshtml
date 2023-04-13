@@ -1,0 +1,51 @@
+﻿@model User
+
+<h2>Register</h2>
+
+<form method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" class="form-control" />
+        @Html.ValidationMessage("firstName")
+    </div>
+
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" class="form-control" />
+        @Html.ValidationMessage("lastName")
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" class="form-control" />
+        @Html.ValidationMessage("email")
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" class="form-control" />
+        @Html.ValidationMessage("password")
+    </div>
+
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" class="form-control" />
+        @Html.ValidationMessage("username")
+    </div>
+
+    <div class="form-group">
+        <label for="roleName">Role:</label>
+        <input type="text" id="roleName" name="roleName" class="form-control" />
+        @Html.ValidationMessage("roleName")
+    </div>
+
+    <div class="form-group">
+        <label for="departmentName">Department:</label>
+        <input type="text" id="departmentName" name="departmentName" class="form-control" />
+        @Html.ValidationMessage("departmentName")
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
