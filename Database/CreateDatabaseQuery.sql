@@ -22,12 +22,11 @@ Email VARCHAR(50) NOT NULL,
 Username VARCHAR(50) NOT NULL,
 CreatedAt DATETIME2 NOT NULL,
 ModifiedAt DATETIME2 NOT NULL,
-ModifiedBy INT NOT NULL,
+MainVacationHours FLOAT DEFAULT(200) NOT NULL,
 RoleID INT NOT NULL,
 DepartmentID INT NOT NULL,
 FOREIGN KEY (RoleID) REFERENCES Roles(Id),
 FOREIGN KEY (DepartmentID) REFERENCES Departments(Id),
-FOREIGN KEY (ModifiedBy) REFERENCES Users(Id)
 )
 
 CREATE TABLE Schedules (
@@ -48,9 +47,15 @@ Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 [Status] VARCHAR(50) NOT NULL,
 StartDate DATETIME2 NOT NULL,
 EndDate DATETIME2 NOT NULL,
-MainVacationHours FLOAT NOT NULL,
-TimeForTimeHours FLOAT NOT NULL,
-isTimeForTime BIT NOT NULL,
-userID INT NOT NULL,
-FOREIGN KEY (userID) REFERENCES Users(Id)
+isMainVacation FLOAT NOT NULL,
+UserID INT NOT NULL,
+FOREIGN KEY (UserID) REFERENCES Users(Id)
 )
+
+INSERT INTO Roles([Name], [Description])
+VALUES ('Admin', 'administrator')
+
+INSERT INTO Departments([Name], [Description])
+VALUES ('Engineering', 'neshto')
+
+SELECT * FROM Users
