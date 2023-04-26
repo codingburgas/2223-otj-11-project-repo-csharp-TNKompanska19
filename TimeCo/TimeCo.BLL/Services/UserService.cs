@@ -6,19 +6,26 @@ using System.Threading.Tasks;
 using TimeCo.DAL.Repositories;
 using TimeCo.DAL.Entities;
 using TimeCo.DAL.Data;
+using TimeCo.BLL.Models;
 
 namespace TimeCo.BLL.Services
 {
     public class UserService
     {
-        public static void GetAllUsers()
+        public static List<UserDTO> GetAllUsers()
         {
-            List<User> userList = UserRepository.GetAllUsers();
+            var userList = from user in UserRepository.GetAllUsers()
+                           join department in DepartmentRepository.GetDepartments() on
+                           user.DepartmentId equals department.Id
+                           select new UserDTO
+                           {
+                               FirstName = user.FirstName,
+                               LastName = user.LastName,
+                               Email = user.Email,
+                               DepartmentName = department.Name
+                           };
 
-            /*foreach (User user in userList)
-            {
-                Console.WriteLine($"ID: {user.Id}, Username: {user.Username}, Email: {user.Email}");
-            }*/
+            return userList.ToList();
         }
 
         public static void GetUser(string username)
@@ -77,7 +84,7 @@ namespace TimeCo.BLL.Services
             UserRepository.AddUser(user);
         }
 
-        public static bool checkUser (string username, string password)
+        /*public static bool checkUser (string username, string password)
         {
             using TimeCoContext context = new TimeCoContext();
 
@@ -89,6 +96,6 @@ namespace TimeCo.BLL.Services
             }
 
             return false;
-        }
+        }*/
     }
 }

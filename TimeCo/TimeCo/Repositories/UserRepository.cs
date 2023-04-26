@@ -11,11 +11,11 @@ namespace TimeCo.DAL.Repositories
 {
     public class UserRepository
     {
-        public static List<User> GetAllUsers()
+        public static IQueryable<User> GetAllUsers()
         {
             using TimeCoContext context = new TimeCoContext();
 
-            return context.Users.Select(x => x).ToList();
+            return context.Users.Select(x => x);
         }
 
         public static User GetUser(string username)

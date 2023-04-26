@@ -11,11 +11,11 @@ namespace TimeCo.DAL.Repositories
 {
     public class DepartmentRepository
     {
-        public static List<Department> GetDepartments()
+        public static IQueryable<Department> GetDepartments()
         {
             using TimeCoContext context = new TimeCoContext();
 
-            return context.Departments.Select(x => x).ToList();
+            return context.Departments.Select(x => x);
         }
 
         public static Department GetUserDepartment(string username)
