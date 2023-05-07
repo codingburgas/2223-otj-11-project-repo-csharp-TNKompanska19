@@ -13,7 +13,7 @@ namespace TimeCo.BLL.Services
     {
         public static void GetAllDepartments()
         {
-            List<Department> departmentList = DepartmentRepository.GetDepartments();
+            //List<Department> departmentList = DepartmentRepository.GetDepartments();
 
             /*foreach (Department department in departmentList)
             {

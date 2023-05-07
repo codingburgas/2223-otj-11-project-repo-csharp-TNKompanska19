@@ -21,6 +21,16 @@ namespace TimeCo.PL.Controllers
             // Redirect to a result page
             return RedirectToAction("Result");
         }
+
+        [HttpPost]
+        public ActionResult AddUserSchedule(string shift, string startDate, string endDate, string startHour, string endHour, string username)
+        {
+            // Call the function with the parameters
+            TimeCo.BLL.Services.ScheduleService.AddUserSchedule(shift, startDate, endDate, startHour, endHour, username);
+
+            // Redirect to a result page
+            return RedirectToAction("Result");
+        }
     }
 
 }

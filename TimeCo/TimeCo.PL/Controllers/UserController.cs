@@ -9,18 +9,18 @@ namespace TimeCo.PL.Controllers
             return View();
         }
 
-        public ActionResult LoginUser(string username, string password)
-        {
+        //public ActionResult LoginUser(string username, string password)
+        //{
             
-            if (TimeCo.BLL.Services.UserService.checkUser(username, password) == true)
-            {
-                return RedirectToAction("Result");
-            }
-            else
-            {
-                return View();
-            }
+        //    if (TimeCo.BLL.Services.UserService.checkUser(username, password) == true)
+        //    {
+        //        return RedirectToAction("Result");
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
            
-        }
+        //}
     }
 }

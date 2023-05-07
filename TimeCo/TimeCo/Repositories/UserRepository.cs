@@ -25,6 +25,12 @@ namespace TimeCo.DAL.Repositories
             return context.Users.Where(x => x.Username == username).FirstOrDefault();
         }
 
+        public static int GetUserId(string username) {
+            using TimeCoContext context = new TimeCoContext();
+            var user = context.Users.Where(x => x.Username == username).FirstOrDefault();
+            return user.Id;
+
+        }
         public static List<User> GetAllAdmins()
         {
             using TimeCoContext context = new TimeCoContext();

@@ -34,6 +34,9 @@ namespace TimeCo.PL.Models
 
         [Required]
         public int DepartmentId { get; set; }
+
+
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 
 }

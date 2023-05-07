@@ -18,6 +18,14 @@ namespace TimeCo.DAL.Repositories
             return context.Departments.Select(x => x);
         }
 
+        public static List<Department> GetDepartmentsList()
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            return context.Departments.Select(x => x).ToList();
+        }
+
+
         public static Department GetUserDepartment(string username)
         {
             using TimeCoContext context = new TimeCoContext();
