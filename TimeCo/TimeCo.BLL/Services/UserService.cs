@@ -12,7 +12,7 @@ namespace TimeCo.BLL.Services
 {
     public class UserService
     {
-        public static List<UserDTO> GetAllUsers()
+        public static List<UserDTO> GetUsersDepartments()
         {
             var userList = from user in UserRepository.GetAllUsers()
                            join department in DepartmentRepository.GetDepartments() on
@@ -26,6 +26,34 @@ namespace TimeCo.BLL.Services
                            };
 
             return userList.ToList();
+        }
+
+        public static void GetAllUsers()
+        {
+            List<User> userList = UserRepository.GetUsersList();
+
+            foreach (User user in userList)
+            {
+                Console.WriteLine($"ID: {user.Id}, FirstName: {user.FirstName}, LastName: {user.LastName}");
+            }
+        }
+
+        public static bool CheckUser(string username, string password)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            var user = context.Users.FirstOrDefault(user => user.Username == username && user.Password == password);
+
+            return user != null;
+        }
+
+        public static bool CheckAdmin(string username)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            var user = context.Users.FirstOrDefault(user => user.Username == username);
+
+            return user.RoleId == 2;
         }
 
         public static void GetUser(string username)

@@ -242,12 +242,22 @@ namespace test.Menus
                         {
                             switch (counter)
                             {
+                                case 0:
+                                    {
+                                        Console.Clear();
+                                        Figures.border(0, 0, 51);
+                                        Figures.label(30, 1);
+                                        Figures.border(107, 0, 51);
+                                        RegistrationForm.login();
+                                    }
+                                    break;
                                 case 1:
                                     {
                                         Console.Clear();
                                         Figures.border(0, 0, 51);
                                         Figures.label(30, 1);
                                         Figures.border(107, 0, 51);
+                                        RegistrationForm.login();
                                     }
                                     break;
                                 case 2:

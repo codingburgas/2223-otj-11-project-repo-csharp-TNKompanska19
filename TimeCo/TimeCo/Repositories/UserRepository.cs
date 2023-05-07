@@ -18,6 +18,12 @@ namespace TimeCo.DAL.Repositories
             return context.Users.Select(x => x);
         }
 
+        public static List<User> GetUsersList()
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            return context.Users.Select(x => x).ToList();
+        }
         public static User GetUser(string username)
         {
             using TimeCoContext context = new TimeCoContext();
