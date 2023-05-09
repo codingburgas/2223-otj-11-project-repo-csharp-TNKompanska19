@@ -122,6 +122,7 @@ namespace TimeCo.BLL.Services
             user.LastName = lastName;
 
             UserRepository.UpdateUser(user);
+
         }
 
         /*public static bool checkUser (string username, string password)
