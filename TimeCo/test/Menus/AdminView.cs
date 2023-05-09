@@ -66,7 +66,7 @@ namespace test.Menus
 				Console.SetCursorPosition(40, 29);
 				string newUsername = Console.ReadLine();
 				
-				//TimeCo.BLL.Services.UserService.updateUsers(name, firstName, lastName, newUsername);
+				TimeCo.BLL.Services.UserService.UpdateUser(name, firstName, lastName, newUsername);
 				Console.Clear();
 				Figures.border(0, 0, 51);
 				Figures.label(30, 1);
@@ -139,10 +139,12 @@ namespace test.Menus
             Console.SetCursorPosition(45, 21);
             Console.WriteLine( "1 - USERS ");
             Console.SetCursorPosition(45, 23);
-            Console.WriteLine( "2 - PROJECTS");
+            Console.WriteLine( "2 - DEPARTMENTS");
             Console.SetCursorPosition(45, 25);
-            Console.WriteLine( "3 - TEAMS ");
-            Console.SetCursorPosition(45, 30);
+            Console.WriteLine( "3 - SCHEDULES ");
+            Console.SetCursorPosition(45, 27);
+            Console.WriteLine("3 - VACATIONS ");
+            Console.SetCursorPosition(45, 32);
             Console.WriteLine( "Enter your choice: ");
             int choice = int.Parse(Console.ReadLine());
 

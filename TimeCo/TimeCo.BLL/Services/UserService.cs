@@ -112,6 +112,18 @@ namespace TimeCo.BLL.Services
             UserRepository.AddUser(user);
         }
 
+        public static void UpdateUser(string username, string firstName, string lastName, string newUsername)
+        {
+            using TimeCoContext context = new TimeCoContext();
+
+            var user = context.Users.FirstOrDefault(user => user.Username == username);
+            user.Username = newUsername;
+            user.FirstName = firstName;
+            user.LastName = lastName;
+
+            UserRepository.UpdateUser(user);
+        }
+
         /*public static bool checkUser (string username, string password)
         {
             using TimeCoContext context = new TimeCoContext();
