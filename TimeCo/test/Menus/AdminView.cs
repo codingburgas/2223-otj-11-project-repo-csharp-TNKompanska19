@@ -11,7 +11,8 @@ namespace test.Menus
     {
         public static void userPanelOptions(string username)
 		{
-			Console.SetCursorPosition(40, 42);
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.SetCursorPosition(40, 42);
 			Console.WriteLine( "PRESS CTRL + P TO MAKE USER AN ADMIN");
 			Console.SetCursorPosition(40, 44);
 			Console.WriteLine( "PRESS CTRL + E TO EDIT USER");
@@ -156,6 +157,7 @@ namespace test.Menus
                         Figures.border(0, 0, 51);
                         Figures.label(30, 1);
                         Figures.border(107, 0, 51);
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         TimeCo.BLL.Services.UserService.GetAllUsers();
                         userPanelOptions(username);
                         ConsoleKeyInfo key;

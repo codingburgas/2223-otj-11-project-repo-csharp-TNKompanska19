@@ -31,10 +31,12 @@ namespace TimeCo.BLL.Services
         public static void GetAllUsers()
         {
             List<User> userList = UserRepository.GetUsersList();
-
+            int x = 30, y = 10;
             foreach (User user in userList)
             {
+                Console.SetCursorPosition(x, y);
                 Console.WriteLine($"ID: {user.Id}, FirstName: {user.FirstName}, LastName: {user.LastName}");
+                y++;
             }
         }
 
@@ -52,8 +54,8 @@ namespace TimeCo.BLL.Services
             using TimeCoContext context = new TimeCoContext();
 
             var user = context.Users.FirstOrDefault(user => user.Username == username);
-
-            return user.RoleId == 2;
+            var role = context.Roles.FirstOrDefault(role => role.Name == "Admin");
+            return role!=null;
         }
 
         public static void GetUser(string username)

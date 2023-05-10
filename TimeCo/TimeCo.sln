@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeCo.BLL", "TimeCo.BLL\Ti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeCo.Utilities", "Utilities\TimeCo.Utilities.csproj", "{67B124AD-6F8B-4C2C-9138-B86192976227}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", "{8F327B3A-A532-4B80-B006-E08097FF44E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeCo.PL", "test\TimeCo.PL.csproj", "{8F327B3A-A532-4B80-B006-E08097FF44E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
