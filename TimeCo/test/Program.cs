@@ -21,7 +21,7 @@ namespace test
 
             do
             {
-                Console.WriteLine(test.Menus.MenuAccess.mainMenu());
+                Console.WriteLine(test.Menus.MenuAccess.MainMenu());
             }
             while (true);
         }

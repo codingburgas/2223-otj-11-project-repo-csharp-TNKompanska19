@@ -10,7 +10,7 @@ namespace test.Menus
     {
         public static void computerFigure(int x, int y)
         {
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.SetCursorPosition(x, y);
             Console.WriteLine("     ____________________________");
             Console.SetCursorPosition(x, y + 1);
@@ -71,7 +71,7 @@ namespace test.Menus
 
         public static void teamFigure(int x, int y)
         {
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.SetCursorPosition(x, y);
             Console.WriteLine("      @@@@    @@@@@@@    @@@@");
             Console.SetCursorPosition(x, y + 1);

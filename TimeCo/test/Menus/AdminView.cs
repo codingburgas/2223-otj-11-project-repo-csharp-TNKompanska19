@@ -232,7 +232,7 @@ namespace test.Menus
                     {
                         case ConsoleKey.Escape:
                             Console.Clear();
-                            MenuAccess.mainMenu();
+                            MenuAccess.MainMenu();
                     }
             }
         }

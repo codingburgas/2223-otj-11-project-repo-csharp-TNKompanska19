@@ -41,7 +41,7 @@ namespace test.Menus
             else
             {
                 Console.Clear();
-                Console.WriteLine(test.Menus.MenuAccess.mainMenu());
+                Console.WriteLine(test.Menus.MenuAccess.MainMenu());
             }
         }
     }

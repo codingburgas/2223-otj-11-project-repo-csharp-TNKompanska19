@@ -9,292 +9,76 @@ namespace test.Menus
 {
     public class MenuAccess
     {
-        public static bool mainMenu()
+        // Function for main menu options
+        public static bool MainMenu()
         {
-            int counter = 0;
-
-            Figures.border(0, 0, 51);
-            Figures.teamFigure(10, 33);
-            Figures.label(30, 1);
-            Figures.button(43, 11, "blue");
-            Figures.button(43, 16, "cyan");
-            Figures.button(43, 21, "cyan");
-            Figures.button(43, 26, "cyan");
-            Figures.textInButton(51, 13, "Log in", "blue");
-            Figures.textInButton(48, 18, "Registration", "cyan");
-            Figures.textInButton(47, 23, "Change password", "cyan");
-            Figures.textInButton(52, 28, "Exit", "cyan");
-            Figures.computerFigure(68, 30);
-            Figures.border(107, 0, 51);
-
-            do
+            int selectedOption = 1;
+            while (true)
             {
+                Console.Clear();
+
+                Figures.border(0, 0, 51);
+                Figures.teamFigure(10, 33);
+                Figures.label(30, 1);
+                Figures.button(43, 11, selectedOption == 1 ? "blue" : "cyan");
+                Figures.button(43, 16, selectedOption == 2 ? "blue" : "cyan");
+                Figures.button(43, 21, selectedOption == 3 ? "blue" : "cyan");
+
+                Figures.textInButton(51, 13, "Log in", selectedOption == 1 ? "blue" : "cyan");
+                Figures.textInButton(47, 18, "Change password", selectedOption == 2 ? "blue" : "cyan");
+                Figures.textInButton(52, 23, "Exit", selectedOption == 3 ? "blue" : "cyan");
+
+                Figures.computerFigure(68, 30);
+                Figures.border(107, 0, 51);
+
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                switch (keyInfo.Key)
+
+                if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
-
-                    case ConsoleKey.UpArrow:
-                        {
-                            switch (counter)
-                            {
-                                case 0:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11, "blue");
-                                        Figures.button(43, 16, "cyan");
-                                        Figures.button(43, 21, "cyan");
-                                        Figures.button(43, 26, "cyan");
-                                        Figures.textInButton(51, 13, "Log in", "blue");
-                                        Figures.textInButton(48, 18, "Registration", "cyan");
-                                        Figures.textInButton(47, 23, "Change password", "cyan");
-                                        Figures.textInButton(52, 28, "Exit", "cyan");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 4;
-                                    }break;
-                                case 1:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11, "blue");
-                                        Figures.button(43, 16, "cyan");
-                                        Figures.button(43, 21, "cyan");
-                                        Figures.button(43, 26, "cyan");
-                                        Figures.textInButton(51, 13, "Log in","blue");
-                                        Figures.textInButton(48, 18, "Registration","cyan");
-                                        Figures.textInButton(47, 23, "Change password","cyan");
-                                        Figures.textInButton(52, 28, "Exit","cyan");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 4;
-                                    }
-                                    break;
-                                case 2:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11,"cyan");
-                                        Figures.button(43, 16,"blue");
-                                        Figures.button(43, 21, "cyan");
-                                        Figures.button(43, 26, "cyan");
-                                        Figures.textInButton(51, 13, "Log in","cyan");
-                                        Figures.textInButton(48, 18, "Registration","blue");
-                                        Figures.textInButton(47, 23, "Change password","cyan");
-                                        Figures.textInButton(52, 28, "Exit","cyan");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 1;
-                                    }
-                                    break;
-                                case 3:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11, "cyan");
-                                        Figures.button(43, 16, "cyan");
-                                        Figures.button(43, 21,"blue");
-                                        Figures.button(43, 26, "cyan");
-                                        Figures.textInButton(51, 13, "Log in","cyan");
-                                        Figures.textInButton(48, 18, "Registration","cyan");
-                                        Figures.textInButton(47, 23, "Change password","blue");
-                                        Figures.textInButton(52, 28, "Exit","cyan");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 2;
-                                    }
-                                    break;
-                                case 4:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11,"cyan");
-                                        Figures.button(43, 16, "cyan");
-                                        Figures.button(43, 21, "cyan");
-                                        Figures.button(43, 26,"blue");
-                                        Figures.textInButton(51, 13, "Log in","cyan");
-                                        Figures.textInButton(48, 18, "Registration","cyan");
-                                        Figures.textInButton(47, 23, "Change password","cyan");
-                                        Figures.textInButton(52, 28, "Exit","blue");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 3;
-                                    }
-                                    break;
-                            }
-                        }
-                        break;
-
-                    case ConsoleKey.DownArrow:
-                        {
-                            switch (counter)
-                            {
-                                case 0:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11, "blue");
-                                        Figures.button(43, 16, "cyan");
-                                        Figures.button(43, 21, "cyan");
-                                        Figures.button(43, 26, "cyan");
-                                        Figures.textInButton(51, 13, "Log in", "blue");
-                                        Figures.textInButton(48, 18, "Registration", "cyan");
-                                        Figures.textInButton(47, 23, "Change password", "cyan");
-                                        Figures.textInButton(52, 28, "Exit", "cyan");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 2;
-                                    }
-                                    break;
-                                case 1:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11, "blue");
-                                        Figures.button(43, 16, "cyan");
-                                        Figures.button(43, 21, "cyan");
-                                        Figures.button(43, 26, "cyan");
-                                        Figures.textInButton(51, 13, "Log in","blue");
-                                        Figures.textInButton(48, 18, "Registration","cyan");
-                                        Figures.textInButton(47, 23, "Change password","cyan");
-                                        Figures.textInButton(52, 28, "Exit","cyan");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 2;
-                                    }
-                                    break;
-                                case 2:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11,"cyan");
-                                        Figures.button(43, 16,"blue");
-                                        Figures.button(43, 21, "cyan");
-                                        Figures.button(43, 26, "cyan");
-                                        Figures.textInButton(51, 13, "Log in","cyan");
-                                        Figures.textInButton(48, 18, "Registration","blue");
-                                        Figures.textInButton(47, 23, "Change password","cyan");
-                                        Figures.textInButton(52, 28, "Exit","cyan");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 3;
-                                    }
-                                    break;
-                                case 3:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11,"cyan");
-                                        Figures.button(43, 16, "cyan");
-                                        Figures.button(43, 21,"blue");
-                                        Figures.button(43, 26, "cyan");
-                                        Figures.textInButton(51, 13, "Log in","cyan");
-                                        Figures.textInButton(48, 18, "Registration","cyan");
-                                        Figures.textInButton(47, 23, "Change password","blue");
-                                        Figures.textInButton(52, 28, "Exit","cyan");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 4;
-                                    }
-                                    break;
-                                case 4:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.teamFigure(10, 33);
-                                        Figures.label(30, 1);
-                                        Figures.button(43, 11,"cyan");
-                                        Figures.button(43, 16, "cyan");
-                                        Figures.button(43, 21, "cyan");
-                                        Figures.button(43, 26,"blue");
-                                        Figures.textInButton(51, 13, "Log in","cyan");
-                                        Figures.textInButton(48, 18, "Registration","cyan");
-                                        Figures.textInButton(47, 23, "Change password","cyan");
-                                        Figures.textInButton(52, 28, "Exit","blue");
-                                        Figures.computerFigure(68, 30);
-                                        Figures.border(107, 0, 51);
-                                        counter = 1;
-                                    }
-                                    break;
-                            }
-                        }
-                        break;
-
-                    case ConsoleKey.RightArrow:
-                        {
-                            switch (counter)
-                            {
-                                case 0:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.label(30, 1);
-                                        Figures.border(107, 0, 51);
-                                        RegistrationForm.login();
-                                    }
-                                    break;
-                                case 1:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.label(30, 1);
-                                        Figures.border(107, 0, 51);
-                                        RegistrationForm.login();
-                                    }
-                                    break;
-                                case 2:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.label(30, 1);
-                                        Figures.border(107, 0, 51);
-                                        
-                                    }
-                                    break;
-                                case 3:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.label(30, 1);
-                                        Figures.border(107, 0, 51);
-                                       
-
-                                    }
-                                    break;
-                                case 4:
-                                    {
-                                        Console.Clear();
-                                        Figures.border(0, 0, 51);
-                                        Figures.label(30, 1);
-                                        Figures.border(107, 0, 51);
-                                        
-                                    }
-                                    break;
-                                
-                            }
-                        }break;
+                    selectedOption--;
+                    if (selectedOption < 1)
+                    {
+                        selectedOption = 3;
+                    }
                 }
-            } while (true);
+
+                else if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    selectedOption++;
+                    if (selectedOption > 3)
+                    {
+                        selectedOption = 1;
+                    }
+                }
+
+                else if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            Console.Clear();
+                            Figures.border(0, 0, 51);
+                            Figures.label(30, 1);
+                            Figures.border(107, 0, 51);
+                            RegistrationForm.login();
+                            break;
+                        case 2:
+                            Console.WriteLine("Selected: Change password");
+                            break;
+                        case 3:
+                            Environment.Exit(1);
+                            break;
+                    }
+                }
+            }
             return true;
         }
+
+
+
+
+               
+        
     }
 }
 
