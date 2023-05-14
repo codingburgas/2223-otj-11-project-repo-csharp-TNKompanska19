@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using TimeCo.DAL.Repositories;
 using TimeCo.DAL.Entities;
 using TimeCo.DAL.Data;
+using TimeCo.BLL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TimeCo.BLL.Services
 {
@@ -13,12 +15,15 @@ namespace TimeCo.BLL.Services
     {
         public static void GetAllDepartments()
         {
-            //List<Department> departmentList = DepartmentRepository.GetDepartments();
+            List<Department> departmentList = DepartmentRepository.GetDepartmentsList();
 
-            /*foreach (Department department in departmentList)
+            int y = 15;
+            foreach (Department department in departmentList)
             {
+                Console.SetCursorPosition(30, y);
                 Console.WriteLine($"ID: {department.Id}, Name: {department.Name}, Description: {department.Description}");
-            }*/
+                y++;
+            }
         }
 
         public static void GetUserDepartment(string username)
@@ -53,5 +58,29 @@ namespace TimeCo.BLL.Services
             }
             DepartmentRepository.UpdateDepartment(department);
         }
+
+        public static void GetUsersDepartments(string departmentName)
+        {
+            using (var context = new TimeCoContext())
+            {
+                var results = from department in context.Departments
+                              join user in context.Users
+                              on department.Id equals user.DepartmentId
+                              where department.Name == departmentName
+                              select new { user.FirstName, user.LastName, department.Name };
+
+                int y = 25;
+                foreach (var item in results.ToList())
+                {
+                    Console.SetCursorPosition(40, y);
+                    Console.WriteLine("{0}: {1} {2}", item.Name, item.FirstName, item.LastName);
+                    y++;
+                }
+
+              
+            }
+        }
+
+
     }
 }

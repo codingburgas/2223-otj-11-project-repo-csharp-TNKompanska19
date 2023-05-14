@@ -17,19 +17,19 @@ namespace test.Menus
             {
                 Console.Clear();
 
-                Figures.border(0, 0, 51);
-                Figures.teamFigure(10, 33);
-                Figures.label(30, 1);
-                Figures.button(43, 11, selectedOption == 1 ? "blue" : "cyan");
-                Figures.button(43, 16, selectedOption == 2 ? "blue" : "cyan");
-                Figures.button(43, 21, selectedOption == 3 ? "blue" : "cyan");
+                Figures.Border(0, 0, 51);
+                Figures.TeamFigure(10, 33);
+                Figures.TimeCoLabel(30, 1);
+                Figures.Button(43, 11, selectedOption == 1 ? "blue" : "cyan");
+                Figures.Button(43, 16, selectedOption == 2 ? "blue" : "cyan");
+                Figures.Button(43, 21, selectedOption == 3 ? "blue" : "cyan");
 
-                Figures.textInButton(51, 13, "Log in", selectedOption == 1 ? "blue" : "cyan");
-                Figures.textInButton(47, 18, "Change password", selectedOption == 2 ? "blue" : "cyan");
-                Figures.textInButton(52, 23, "Exit", selectedOption == 3 ? "blue" : "cyan");
+                Figures.TextInButton(51, 13, "Log in", selectedOption == 1 ? "blue" : "cyan");
+                Figures.TextInButton(47, 18, "Change password", selectedOption == 2 ? "blue" : "cyan");
+                Figures.TextInButton(52, 23, "Exit", selectedOption == 3 ? "blue" : "cyan");
 
-                Figures.computerFigure(68, 30);
-                Figures.border(107, 0, 51);
+                Figures.ComputerFigure(68, 30);
+                Figures.Border(107, 0, 51);
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
@@ -57,10 +57,10 @@ namespace test.Menus
                     {
                         case 1:
                             Console.Clear();
-                            Figures.border(0, 0, 51);
-                            Figures.label(30, 1);
-                            Figures.border(107, 0, 51);
-                            RegistrationForm.login();
+                            Figures.Border(0, 0, 51);
+                            Figures.TimeCoLabel(30, 1);
+                            Figures.Border(107, 0, 51);
+                            RegistrationForm.Login();
                             break;
                         case 2:
                             Console.WriteLine("Selected: Change password");

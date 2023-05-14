@@ -35,7 +35,7 @@ namespace TimeCo.BLL.Services
             foreach (User user in userList)
             {
                 Console.SetCursorPosition(x, y);
-                Console.WriteLine($"ID: {user.Id}, FirstName: {user.FirstName}, LastName: {user.LastName}");
+                Console.WriteLine($"FirstName: {user.FirstName}, LastName: {user.LastName}, Username: {user.Username}");
                 y++;
             }
         }
@@ -127,18 +127,16 @@ namespace TimeCo.BLL.Services
 
         }
 
-        /*public static bool checkUser (string username, string password)
+        public static void AddUserToDepartment(string username, string departmentName)
         {
             using TimeCoContext context = new TimeCoContext();
 
-            List<User> users = UserRepository.GetAllUsers();
+            var user = context.Users.FirstOrDefault(user => user.Username == username);
+            var department = context.Departments.FirstOrDefault(department => department.Name == departmentName);
+            user.DepartmentId = department.Id;
+            
+            UserRepository.UpdateUser(user);
 
-            foreach (var user in users)
-            {
-                if (user.Username == username && user.Password == password) return true;
-            }
-
-            return false;
-        }*/
+        }
     }
 }

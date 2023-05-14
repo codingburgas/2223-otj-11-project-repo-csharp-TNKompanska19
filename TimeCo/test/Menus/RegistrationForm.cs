@@ -8,7 +8,8 @@ namespace test.Menus
 {
     public class RegistrationForm
     {
-        public static void login()
+        // Function for login
+        public static void Login()
         {
             Console.SetCursorPosition(45, 21);
             Console.WriteLine("ENTER USERNAME: ");
@@ -24,17 +25,17 @@ namespace test.Menus
                 if (TimeCo.BLL.Services.UserService.CheckAdmin(username) == true)
                 {
                     Console.Clear();
-                    Figures.border(0, 0, 51);
-                    Figures.label(30, 1);
-                    Figures.border(107, 0, 51);
-                    AdminView.adminOptions(username);
+                    Figures.Border(0, 0, 51);
+                    Figures.TimeCoLabel(30, 1);
+                    Figures.Border(107, 0, 51);
+                    AdminView.AdminPanelOptions(username);
                 }
                 else
                 {
                     Console.Clear();
-                    Figures.border(0, 0, 51);
-                    Figures.label(30, 1);
-                    Figures.border(107, 0, 51);
+                    Figures.Border(0, 0, 51);
+                    Figures.TimeCoLabel(30, 1);
+                    Figures.Border(107, 0, 51);
                     //standardOptions(username);
                 }
             }

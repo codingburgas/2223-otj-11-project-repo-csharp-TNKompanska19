@@ -8,7 +8,7 @@ namespace test.Menus
 {
     public class Figures
     {
-        public static void computerFigure(int x, int y)
+        public static void ComputerFigure(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.SetCursorPosition(x, y);
@@ -51,7 +51,7 @@ namespace test.Menus
             Console.WriteLine ("/C=_____________________/_/");
         }
 
-        public static void label(int x, int y)
+        public static void TimeCoLabel(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.SetCursorPosition(x, y);
@@ -69,7 +69,7 @@ namespace test.Menus
             Console.WriteLine("    |_|  |_|_| |_| |_|\\___|\\_____\\___/ ");
         }
 
-        public static void teamFigure(int x, int y)
+        public static void TeamFigure(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.SetCursorPosition(x, y);
@@ -108,7 +108,7 @@ namespace test.Menus
             Console.WriteLine( "             @@@@ @@@@");
         }
 
-        public static void button(int x, int y, string colour)
+        public static void Button(int x, int y, string colour)
         {
             Console.ForegroundColor = TimeCo.Utilities.ConsoleColour.TextColour(colour);
             Console.SetCursorPosition(x, y);
@@ -121,13 +121,13 @@ namespace test.Menus
             Console.WriteLine(" \\___________________/");
         }
 
-        public static void textInButton(int x, int y, string text, string colour)
+        public static void TextInButton(int x, int y, string text, string colour)
         {
             Console.ForegroundColor = TimeCo.Utilities.ConsoleColour.TextColour(colour);
             Console.SetCursorPosition(x, y);
             Console.WriteLine(text);
         }
-        public static void border(int x, int y, int n)
+        public static void Border(int x, int y, int n)
         {
 
             for (int i = 0; i < n; i++)
