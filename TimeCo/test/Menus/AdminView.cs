@@ -153,8 +153,12 @@ namespace test.Menus
                                 Figures.Border(0, 0, 51);
                                 Figures.TimeCoLabel(30, 1);
                                 Figures.Border(107, 0, 51);
-                                TimeCo.BLL.Services.UserService.GetAllUsers();
-                                Thread.Sleep(8000);
+                                Parallel.For(0, 4, (i) =>
+                                {
+                                    TimeCo.BLL.Services.UserService.GetAllUsers();
+                                });
+                                //TimeCo.BLL.Services.UserService.GetAllUsers();
+                                Console.ReadLine();
                             }
                             break;
                         case 5:
@@ -246,7 +250,7 @@ namespace test.Menus
                             Console.SetCursorPosition(25, 22);
                             string name = Console.ReadLine();
                             TimeCo.BLL.Services.DepartmentService.GetUsersDepartments(name);
-                            Thread.Sleep(8000);
+                            Console.ReadLine();
                             break;
                         case 2:
                             Console.Clear();

@@ -13,6 +13,13 @@ namespace TimeCo.BLL.Services
 {
     public class DepartmentService
     {
+        private TimeCoContext _context;
+
+        public DepartmentService()
+        {
+            _context = new TimeCoContext();
+        }
+
         public static void GetAllDepartments()
         {
             List<Department> departmentList = DepartmentRepository.GetDepartmentsList();
@@ -44,12 +51,9 @@ namespace TimeCo.BLL.Services
             DepartmentRepository.AddDepartment(department);
         }
 
-        public static void UpdateDepartment(string name, string editedName, string editedDescription)
+        public void UpdateDepartment(string name, string editedName, string editedDescription)
         {
-
-            using TimeCoContext context = new TimeCoContext();
-
-            var department = context.Departments.FirstOrDefault(item => item.Name == name);
+            var department = _context.Departments.FirstOrDefault(item => item.Name == name);
 
             if (department != null)
             {
