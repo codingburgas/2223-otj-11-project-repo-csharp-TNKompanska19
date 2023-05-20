@@ -8,6 +8,12 @@ namespace TimeCo.Utilities
 {
     public class Converter
     {
+        public string DateOnly(DateTime dateTime)
+        {
+            DateTime dateOnly = dateTime.Date;
+            return dateOnly.ToString("yyyy-MM-dd");
+        }
+       
         public DateTime ToDate(string dateString)
         {
             DateTime date = DateTime.ParseExact(dateString, "dd-MM-yyyy", null);

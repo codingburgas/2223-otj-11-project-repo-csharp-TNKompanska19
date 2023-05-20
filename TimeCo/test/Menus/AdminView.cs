@@ -13,11 +13,14 @@ namespace test.Menus
     {
         private TimeCo.BLL.Services.DepartmentService _departmentService;
         private TimeCo.BLL.Services.UserService _userService;
+        private TimeCo.BLL.Services.ScheduleService _scheduleService;
+
         private Figures _figures;
         public AdminView()
         {
             _departmentService = new TimeCo.BLL.Services.DepartmentService();
             _userService = new TimeCo.BLL.Services.UserService();
+            _scheduleService = new TimeCo.BLL.Services.ScheduleService();
             _figures = new Figures();
         }
 
@@ -320,6 +323,120 @@ namespace test.Menus
             }
         }
 
+        public void AdminPanelScheduleOptions(string username)
+        {
+            int selectedOption = 1;
+            while (true)
+            {
+                Console.Clear();
+
+                _figures.Border(0, 0, 51);
+                _figures.TeamFigure(10, 33);
+                _figures.TimeCoLabel(30, 1);
+                _figures.Button(43, 11, selectedOption == 1 ? "blue" : "cyan");
+                _figures.Button(43, 16, selectedOption == 2 ? "blue" : "cyan");
+
+
+                _figures.TextInButton(45, 13, "Add schedule to user", selectedOption == 1 ? "blue" : "cyan");
+                _figures.TextInButton(45, 18, "View user schedule", selectedOption == 2 ? "blue" : "cyan");
+
+
+
+                _figures.Border(107, 0, 51);
+
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    selectedOption--;
+                    if (selectedOption < 1)
+                    {
+                        selectedOption = 2;
+                    }
+                }
+
+                else if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    selectedOption++;
+                    if (selectedOption > 2)
+                    {
+                        selectedOption = 1;
+                    }
+                }
+
+                else if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            {
+                                Console.Clear();
+                                _figures.Border(0, 0, 51);
+                                _figures.TimeCoLabel(30, 1);
+                                _figures.Border(107, 0, 51);
+                                Console.SetCursorPosition(33, 21);
+                                Console.WriteLine("Enter the username of the user you want to add schedule:");
+                                Console.SetCursorPosition(40, 22);
+                                string name = Console.ReadLine();
+                                Console.SetCursorPosition(33, 24);
+                                Console.WriteLine("Enter the user shift:");
+                                Console.SetCursorPosition(40, 25);
+                                string userShift = Console.ReadLine();
+                                Console.SetCursorPosition(33, 27);
+                                Console.WriteLine("Enter the start date:");
+                                Console.SetCursorPosition(40, 28);
+                                string startDate = Console.ReadLine();
+                                Console.SetCursorPosition(33, 30);
+                                Console.WriteLine("Enter the end date:");
+                                Console.SetCursorPosition(40, 31);
+                                string endDate = Console.ReadLine();
+                                Console.SetCursorPosition(33, 33);
+                                Console.WriteLine("Enter the start hour:");
+                                Console.SetCursorPosition(40, 34);
+                                string startHour = Console.ReadLine();
+                                Console.SetCursorPosition(33, 36);
+                                Console.WriteLine("Enter the end hour:");
+                                Console.SetCursorPosition(40, 37);
+                                string endHour = Console.ReadLine();
+                                _scheduleService.AddUserSchedule(userShift, startDate, endDate, startHour, endHour, name);
+                                Console.Clear();
+                                _figures.Border(0, 0, 51);
+                                _figures.TimeCoLabel(30, 1);
+                                _figures.Border(107, 0, 51);
+                                AdminPanelOptions(username);
+                            }
+                            break;
+                        case 2:
+                            {
+                                Console.Clear();
+                                _figures.Border(0, 0, 51);
+                                _figures.TimeCoLabel(30, 1);
+                                _figures.Border(107, 0, 51);
+                                Console.SetCursorPosition(40, 21);
+                                Console.WriteLine("Enter the username of the user you want to view schedule:");
+                                Console.SetCursorPosition(40, 22);
+                                string name = Console.ReadLine();
+                                _scheduleService.GetUserSchedule(name);
+                                Console.ReadLine();
+                                /*Console.Clear();
+                                _figures.Border(0, 0, 51);
+                                _figures.TimeCoLabel(30, 1);
+                                _figures.Border(107, 0, 51);
+                                AdminPanelOptions(username);*/
+                            }
+                            break;
+                    }
+                }
+
+                else if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    AdminPanelOptions(username);
+                }
+
+            }
+        }
+
         public void AdminPanelOptions(string username)
         {
             int selectedOption = 1;
@@ -386,7 +503,13 @@ namespace test.Menus
                             AdminPanelDepartmentOptions(username);
                             break;
                         case 3:
-							Console.WriteLine("Schedules");
+                            Console.Clear();
+                            _figures.Border(0, 0, 51);
+                            _figures.TimeCoLabel(30, 1);
+                            _figures.Border(107, 0, 51);
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            _departmentService.GetAllDepartments();
+                            AdminPanelScheduleOptions(username);
                             break;
 					    case 4:
 							Console.WriteLine("Vacations");

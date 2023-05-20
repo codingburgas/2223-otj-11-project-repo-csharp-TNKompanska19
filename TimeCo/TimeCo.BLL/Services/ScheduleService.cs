@@ -7,6 +7,7 @@ using TimeCo.DAL.Repositories;
 using TimeCo.DAL.Entities;
 using TimeCo.Utilities;
 using TimeCo.DAL.Data;
+using Microsoft.SqlServer.Management.HadrData;
 
 namespace TimeCo.BLL.Services
 {
@@ -20,12 +21,6 @@ namespace TimeCo.BLL.Services
             _context = new TimeCoContext();
             _scheduleRepository = new ScheduleRepository();
             _converter = new TimeCo.Utilities.Converter();
-        }
-
-        public static void GetUserSchedule(string username)
-        {
-            //Schedule userSchedule = ScheduleRepository.GetUserSchedule(username);
-            //Console.WriteLine($"Shift: {userSchedule.Shift}, Start Date: {userSchedule.StartDate}, End Date: {userSchedule.EndDate}, Start Hour: {userSchedule.StartHour}, End Hour: {userSchedule.EndHour}");
         }
 
         public void AddUserSchedule (string userShift, string startDate, string endDate, string startHour, string endHour, string username) 
@@ -44,6 +39,31 @@ namespace TimeCo.BLL.Services
             };
 
             _scheduleRepository.AddSchedule(schedule);
+        }
+
+        public void GetUserSchedule(string username)
+        {
+            using (_context)
+            {
+                var results = from schedule in _context.Schedules
+                              join user in _context.Users on schedule.UserId equals user.Id
+                              where user.Username == username
+                              select new
+                              {
+                                  schedule.StartDate,
+                                  schedule.EndDate,
+                                  schedule.StartHour,
+                                  schedule.EndHour
+                              };
+
+                int y = 25;
+                foreach (var item in results.ToList())
+                {
+                    Console.SetCursorPosition(35, y);
+                    Console.WriteLine("Dates: {0} - {1}; Hours: {2} - {3}", _converter.DateOnly(item.StartDate), _converter.DateOnly(item.EndDate), item.StartHour, item.EndHour);
+                    y++;
+                }
+            }
         }
     }
 }

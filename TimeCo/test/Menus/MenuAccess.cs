@@ -14,7 +14,7 @@ namespace test.Menus
         public MenuAccess()
         {
             _figures = new Figures();
-            _registrationForm = new RegistrationForm();
+            _registrationForm = new RegistrationForm(null);
         }
 
         // Function for main menu options

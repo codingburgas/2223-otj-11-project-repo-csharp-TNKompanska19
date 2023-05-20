@@ -12,12 +12,12 @@ namespace test.Menus
         private MenuAccess _menuAccess;
         private Figures _figures;
         private TimeCo.BLL.Services.UserService _userService;
-        public RegistrationForm()
+        public RegistrationForm(MenuAccess menuAccess)
         {
             _adminView = new AdminView();
             _userService = new TimeCo.BLL.Services.UserService();
             _figures = new Figures();
-            _menuAccess = new MenuAccess();
+            _menuAccess = menuAccess;
         }
 
         // Function for login
