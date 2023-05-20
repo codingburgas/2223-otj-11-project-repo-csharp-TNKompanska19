@@ -9,27 +9,35 @@ namespace test.Menus
 {
     public class MenuAccess
     {
+        private Figures _figures;
+        private RegistrationForm _registrationForm;
+        public MenuAccess()
+        {
+            _figures = new Figures();
+            _registrationForm = new RegistrationForm();
+        }
+
         // Function for main menu options
-        public static bool MainMenu()
+        public bool MainMenu()
         {
             int selectedOption = 1;
             while (true)
             {
                 Console.Clear();
 
-                Figures.Border(0, 0, 51);
-                Figures.TeamFigure(10, 33);
-                Figures.TimeCoLabel(30, 1);
-                Figures.Button(43, 11, selectedOption == 1 ? "blue" : "cyan");
-                Figures.Button(43, 16, selectedOption == 2 ? "blue" : "cyan");
-                Figures.Button(43, 21, selectedOption == 3 ? "blue" : "cyan");
+                _figures.Border(0, 0, 51);
+                _figures.TeamFigure(10, 33);
+                _figures.TimeCoLabel(30, 1);
+                _figures.Button(43, 11, selectedOption == 1 ? "blue" : "cyan");
+                _figures.Button(43, 16, selectedOption == 2 ? "blue" : "cyan");
+                _figures.Button(43, 21, selectedOption == 3 ? "blue" : "cyan");
 
-                Figures.TextInButton(51, 13, "Log in", selectedOption == 1 ? "blue" : "cyan");
-                Figures.TextInButton(47, 18, "Change password", selectedOption == 2 ? "blue" : "cyan");
-                Figures.TextInButton(52, 23, "Exit", selectedOption == 3 ? "blue" : "cyan");
+                _figures.TextInButton(51, 13, "Log in", selectedOption == 1 ? "blue" : "cyan");
+                _figures.TextInButton(47, 18, "Change password", selectedOption == 2 ? "blue" : "cyan");
+                _figures.TextInButton(52, 23, "Exit", selectedOption == 3 ? "blue" : "cyan");
 
-                Figures.ComputerFigure(68, 30);
-                Figures.Border(107, 0, 51);
+                _figures.ComputerFigure(68, 30);
+                _figures.Border(107, 0, 51);
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
@@ -57,10 +65,10 @@ namespace test.Menus
                     {
                         case 1:
                             Console.Clear();
-                            Figures.Border(0, 0, 51);
-                            Figures.TimeCoLabel(30, 1);
-                            Figures.Border(107, 0, 51);
-                            RegistrationForm.Login();
+                            _figures.Border(0, 0, 51);
+                            _figures.TimeCoLabel(30, 1);
+                            _figures.Border(107, 0, 51);
+                            _registrationForm.Login();
                             break;
                         case 2:
                             Console.WriteLine("Selected: Change password");

@@ -5,14 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeCo.DAL.Repositories;
 using TimeCo.DAL.Entities;
+using TimeCo.DAL.Data;
 
 namespace TimeCo.BLL.Services
 {
     public class RoleService
     {
-        public static void GetUserRole(string username)
+        private TimeCoContext _context;
+        private RoleRepository _roleRepository;
+        public RoleService()
         {
-                Role userRole = RoleRepository.GetUserRole(username);
+            _context = new TimeCoContext();
+            _roleRepository = new RoleRepository();
+        }
+        public void GetUserRole(string username)
+        {
+                Role userRole = _roleRepository.GetUserRole(username);
                // Console.WriteLine($"Role: {userRole.Name}, Description: {userRole.Description}");
         }
     }

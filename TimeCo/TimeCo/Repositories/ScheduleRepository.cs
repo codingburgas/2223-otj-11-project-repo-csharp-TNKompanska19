@@ -11,29 +11,31 @@ namespace TimeCo.DAL.Repositories
 {
     public class ScheduleRepository
     {
-        public static List<Schedule> GetUserSchedule(string username)
+        private TimeCoContext _context;
+        private UserRepository _userRepository;
+        public ScheduleRepository()
         {
-            using TimeCoContext context = new TimeCoContext();
-
-            User user = UserRepository.GetUser(username);
-
-            return context.Schedules.Where(x => x.UserId == user.Id).ToList();
+            _context = new TimeCoContext();
+            _userRepository = new UserRepository();
         }
 
-        public static Schedule GetSchedule(int id)
+        public List<Schedule> GetUserSchedule(string username)
         {
-            using TimeCoContext context = new TimeCoContext(); 
+            User user = _userRepository.GetUser(username);
 
-            return context.Schedules.FirstOrDefault(x => x.Id == id);
+            return _context.Schedules.Where(x => x.UserId == user.Id).ToList();
         }
 
-        public static void AddSchedule(Schedule schedule)
+        public Schedule GetSchedule(int id)
         {
-            using TimeCoContext context = new TimeCoContext();
+            return _context.Schedules.FirstOrDefault(x => x.Id == id);
+        }
 
-            context.Schedules.Add(schedule);
+        public void AddSchedule(Schedule schedule)
+        {
+            _context.Schedules.Add(schedule);
 
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }

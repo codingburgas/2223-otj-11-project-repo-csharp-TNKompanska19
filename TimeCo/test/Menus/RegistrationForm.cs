@@ -8,8 +8,20 @@ namespace test.Menus
 {
     public class RegistrationForm
     {
+        private AdminView _adminView;
+        private MenuAccess _menuAccess;
+        private Figures _figures;
+        private TimeCo.BLL.Services.UserService _userService;
+        public RegistrationForm()
+        {
+            _adminView = new AdminView();
+            _userService = new TimeCo.BLL.Services.UserService();
+            _figures = new Figures();
+            _menuAccess = new MenuAccess();
+        }
+
         // Function for login
-        public static void Login()
+        public void Login()
         {
             Console.SetCursorPosition(45, 21);
             Console.WriteLine("ENTER USERNAME: ");
@@ -20,29 +32,29 @@ namespace test.Menus
             Console.SetCursorPosition(45, 25);
             string pass = Console.ReadLine();
             //string password = pm::bll::passwordHashing::sha256(pass);
-            if (TimeCo.BLL.Services.UserService.CheckUser(username, pass) == true)
+            if (_userService.CheckUser(username, pass) == true)
             {
-                if (TimeCo.BLL.Services.UserService.CheckAdmin(username) == true)
+                if (_userService.CheckAdmin(username) == true)
                 {
                     Console.Clear();
-                    Figures.Border(0, 0, 51);
-                    Figures.TimeCoLabel(30, 1);
-                    Figures.Border(107, 0, 51);
-                    AdminView.AdminPanelOptions(username);
+                    _figures.Border(0, 0, 51);
+                    _figures.TimeCoLabel(30, 1);
+                    _figures.Border(107, 0, 51);
+                    _adminView.AdminPanelOptions(username);
                 }
                 else
                 {
                     Console.Clear();
-                    Figures.Border(0, 0, 51);
-                    Figures.TimeCoLabel(30, 1);
-                    Figures.Border(107, 0, 51);
+                    _figures.Border(0, 0, 51);
+                    _figures.TimeCoLabel(30, 1);
+                    _figures.Border(107, 0, 51);
                     //standardOptions(username);
                 }
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine(test.Menus.MenuAccess.MainMenu());
+                Console.WriteLine(_menuAccess.MainMenu());
             }
         }
     }

@@ -14,15 +14,16 @@ namespace TimeCo.BLL.Services
     public class DepartmentService
     {
         private TimeCoContext _context;
-
+        private DepartmentRepository _departmentRepository;
         public DepartmentService()
         {
             _context = new TimeCoContext();
+            _departmentRepository = new DepartmentRepository();
         }
 
-        public static void GetAllDepartments()
+        public void GetAllDepartments()
         {
-            List<Department> departmentList = DepartmentRepository.GetDepartmentsList();
+            List<Department> departmentList = _departmentRepository.GetDepartmentsList();
 
             int y = 15;
             foreach (Department department in departmentList)
@@ -33,14 +34,14 @@ namespace TimeCo.BLL.Services
             }
         }
 
-        public static void GetUserDepartment(string username)
+        public void GetUserDepartment(string username)
         {
-            Department userDepartment = DepartmentRepository.GetUserDepartment(username);
+            Department userDepartment = _departmentRepository.GetUserDepartment(username);
 
             //Console.WriteLine($"Name: {userDepartment.Name}, Description: {userDepartment.Description}");
         }
 
-        public static void AddDepartment(string name, string description)
+        public void AddDepartment(string name, string description)
         {
             Department department = new Department()
             {
@@ -48,7 +49,7 @@ namespace TimeCo.BLL.Services
                 Description = description
             };
 
-            DepartmentRepository.AddDepartment(department);
+            _departmentRepository.AddDepartment(department);
         }
 
         public void UpdateDepartment(string name, string editedName, string editedDescription)
@@ -60,15 +61,15 @@ namespace TimeCo.BLL.Services
                 department.Name = editedName;
                 department.Description = editedDescription;
             }
-            DepartmentRepository.UpdateDepartment(department);
+            _departmentRepository.UpdateDepartment(department);
         }
 
-        public static void GetUsersDepartments(string departmentName)
+        public void GetUsersDepartments(string departmentName)
         {
-            using (var context = new TimeCoContext())
+            using (_context)
             {
-                var results = from department in context.Departments
-                              join user in context.Users
+                var results = from department in _context.Departments
+                              join user in _context.Users
                               on department.Id equals user.DepartmentId
                               where department.Name == departmentName
                               select new { user.FirstName, user.LastName, department.Name };

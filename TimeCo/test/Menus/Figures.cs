@@ -8,7 +8,13 @@ namespace test.Menus
 {
     public class Figures
     {
-        public static void ComputerFigure(int x, int y)
+        private TimeCo.Utilities.ConsoleColour _consoleColour;
+
+        public Figures() 
+        {
+            _consoleColour = new TimeCo.Utilities.ConsoleColour();
+        }
+        public void ComputerFigure(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.SetCursorPosition(x, y);
@@ -51,7 +57,7 @@ namespace test.Menus
             Console.WriteLine ("/C=_____________________/_/");
         }
 
-        public static void TimeCoLabel(int x, int y)
+        public void TimeCoLabel(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.SetCursorPosition(x, y);
@@ -69,7 +75,7 @@ namespace test.Menus
             Console.WriteLine("    |_|  |_|_| |_| |_|\\___|\\_____\\___/ ");
         }
 
-        public static void TeamFigure(int x, int y)
+        public void TeamFigure(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.SetCursorPosition(x, y);
@@ -108,9 +114,9 @@ namespace test.Menus
             Console.WriteLine( "             @@@@ @@@@");
         }
 
-        public static void Button(int x, int y, string colour)
+        public void Button(int x, int y, string colour)
         {
-            Console.ForegroundColor = TimeCo.Utilities.ConsoleColour.TextColour(colour);
+            Console.ForegroundColor = _consoleColour.TextColour(colour);
             Console.SetCursorPosition(x, y);
             Console.WriteLine("  ___________________");
             Console.SetCursorPosition(x, y + 1);
@@ -121,13 +127,13 @@ namespace test.Menus
             Console.WriteLine(" \\___________________/");
         }
 
-        public static void TextInButton(int x, int y, string text, string colour)
+        public void TextInButton(int x, int y, string text, string colour)
         {
-            Console.ForegroundColor = TimeCo.Utilities.ConsoleColour.TextColour(colour);
+            Console.ForegroundColor = _consoleColour.TextColour(colour);
             Console.SetCursorPosition(x, y);
             Console.WriteLine(text);
         }
-        public static void Border(int x, int y, int n)
+        public void Border(int x, int y, int n)
         {
 
             for (int i = 0; i < n; i++)

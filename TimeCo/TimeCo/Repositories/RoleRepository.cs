@@ -10,13 +10,19 @@ namespace TimeCo.DAL.Repositories
 {
     public class RoleRepository
     {
-        public static Role GetUserRole(string username)
+        private TimeCoContext _context;
+        private UserRepository _userRepository;
+        public RoleRepository()
         {
-            using TimeCoContext context = new TimeCoContext();
+            _context = new TimeCoContext();
+            _userRepository = new UserRepository();
+        }
 
-            User user = UserRepository.GetUser(username);
+        public Role GetUserRole(string username)
+        {
+            User user = _userRepository.GetUser(username);
 
-            return context.Roles.Where(x => x.Id == user.RoleId).FirstOrDefault();
+            return _context.Roles.Where(x => x.Id == user.RoleId).FirstOrDefault();
         }
     }
 }

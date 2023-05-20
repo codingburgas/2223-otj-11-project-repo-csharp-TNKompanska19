@@ -12,29 +12,38 @@ namespace TimeCo.BLL.Services
 {
     public class ScheduleService
     {
+        private TimeCoContext _context;
+        private ScheduleRepository _scheduleRepository;
+        private TimeCo.Utilities.Converter _converter;
+        public ScheduleService()
+        {
+            _context = new TimeCoContext();
+            _scheduleRepository = new ScheduleRepository();
+            _converter = new TimeCo.Utilities.Converter();
+        }
+
         public static void GetUserSchedule(string username)
         {
             //Schedule userSchedule = ScheduleRepository.GetUserSchedule(username);
             //Console.WriteLine($"Shift: {userSchedule.Shift}, Start Date: {userSchedule.StartDate}, End Date: {userSchedule.EndDate}, Start Hour: {userSchedule.StartHour}, End Hour: {userSchedule.EndHour}");
         }
 
-        public static void AddUserSchedule (string userShift, string startDate, string endDate, string startHour, string endHour, string username) 
+        public void AddUserSchedule (string userShift, string startDate, string endDate, string startHour, string endHour, string username) 
         {
-            using TimeCoContext context = new TimeCoContext();
 
-            var user = context.Users.FirstOrDefault(user => user.Username == username);
+            var user = _context.Users.FirstOrDefault(user => user.Username == username);
 
             Schedule schedule = new Schedule()
             {
                 Shift = userShift,
-                StartDate = TimeCo.Utilities.Converter.ToDate(startDate),
-                EndDate = TimeCo.Utilities.Converter.ToDate(endDate),
-                StartHour = TimeCo.Utilities.Converter.ToHour(startHour),
-                EndHour = TimeCo.Utilities.Converter.ToHour(endHour),
+                StartDate = _converter.ToDate(startDate),
+                EndDate = _converter.ToDate(endDate),
+                StartHour = _converter.ToHour(startHour),
+                EndHour = _converter.ToHour(endHour),
                 UserId = user.Id
             };
 
-            ScheduleRepository.AddSchedule(schedule);
+            _scheduleRepository.AddSchedule(schedule);
         }
     }
 }

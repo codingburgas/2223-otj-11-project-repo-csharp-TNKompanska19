@@ -11,67 +11,60 @@ namespace TimeCo.DAL.Repositories
 {
     public class UserRepository
     {
-        public static IQueryable<User> GetAllUsers()
-        {
-            using TimeCoContext context = new TimeCoContext();
+        private TimeCoContext _context;
 
-            return context.Users.Select(x => x);
+        public UserRepository()
+        {
+            _context = new TimeCoContext();
         }
 
-        public static List<User> GetUsersList()
+        public IQueryable<User> GetAllUsers()
         {
-            using TimeCoContext context = new TimeCoContext();
-
-            return context.Users.Select(x => x).ToList();
-        }
-        public static User GetUser(string username)
-        {
-            using TimeCoContext context = new TimeCoContext();
-
-            return context.Users.Where(x => x.Username == username).FirstOrDefault();
+            return _context.Users.Select(x => x);
         }
 
-        public static int GetUserId(string username) {
-            using TimeCoContext context = new TimeCoContext();
-            var user = context.Users.Where(x => x.Username == username).FirstOrDefault();
+        public  List<User> GetUsersList()
+        {
+
+            return _context.Users.Select(x => x).ToList();
+        }
+        public User GetUser(string username)
+        {
+            return _context.Users.Where(x => x.Username == username).FirstOrDefault();
+        }
+
+        public int GetUserId(string username)
+        {
+            var user = _context.Users.Where(x => x.Username == username).FirstOrDefault();
             return user.Id;
-
         }
-        public static List<User> GetAllAdmins()
+        public List<User> GetAllAdmins()
         {
-            using TimeCoContext context = new TimeCoContext();
+            
+            var role = _context.Roles.FirstOrDefault(role => role.Name == "Admin");
 
-            var role = context.Roles.FirstOrDefault(role => role.Name == "Admin");
-
-            return context.Users.Where(x => x.RoleId == role.Id).ToList();
+            return _context.Users.Where(x => x.RoleId == role.Id).ToList();
         }
 
-        public static void AddUser(User user)
+        public void AddUser(User user)
         {
-            using TimeCoContext context = new TimeCoContext();
+            _context.Users.Add(user);
 
-            context.Users.Add(user);
-
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
-        public static void MakeUserAnAdmin(User user)
+        public void MakeUserAnAdmin(User user)
         {
-            using TimeCoContext context = new TimeCoContext();
+            _context.Users.Update(user);
 
-            context.Users.Update(user);
-
-            context.SaveChanges();
-
+            _context.SaveChanges();
         }
 
-        public static void UpdateUser(User user)
+        public void UpdateUser(User user)
         {
-            using TimeCoContext context = new TimeCoContext();
+            _context.Users.Update(user);
 
-            context.Users.Update(user);
-
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }

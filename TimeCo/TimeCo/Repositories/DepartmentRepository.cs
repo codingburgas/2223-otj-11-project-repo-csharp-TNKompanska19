@@ -11,46 +11,44 @@ namespace TimeCo.DAL.Repositories
 {
     public class DepartmentRepository
     {
-        public static IQueryable<Department> GetDepartments()
+        private TimeCoContext _context;
+        private UserRepository _userRepository;
+        public DepartmentRepository()
         {
-            using TimeCoContext context = new TimeCoContext();
-
-            return context.Departments.Select(x => x);
+            _context = new TimeCoContext();
+            _userRepository = new UserRepository();
         }
 
-        public static List<Department> GetDepartmentsList()
+        public IQueryable<Department> GetDepartments()
         {
-            using TimeCoContext context = new TimeCoContext();
+            return _context.Departments.Select(x => x);
+        }
 
-            return context.Departments.Select(x => x).ToList();
+        public List<Department> GetDepartmentsList()
+        {
+            return _context.Departments.Select(x => x).ToList();
         }
 
 
-        public static Department GetUserDepartment(string username)
+        public Department GetUserDepartment(string username)
         {
-            using TimeCoContext context = new TimeCoContext();
+            User user = _userRepository.GetUser(username);
 
-            User user = UserRepository.GetUser(username);
-
-            return context.Departments.Where(x => x.Id == user.DepartmentId).FirstOrDefault();
+            return _context.Departments.Where(x => x.Id == user.DepartmentId).FirstOrDefault();
         }
 
-        public static void AddDepartment(Department department)
+        public void AddDepartment(Department department)
         {
-            using TimeCoContext context = new TimeCoContext();
+            _context.Departments.Add(department);
 
-            context.Departments.Add(department);
-
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
-        public static void UpdateDepartment(Department department)
+        public void UpdateDepartment(Department department)
         {
-            using TimeCoContext context = new TimeCoContext();
+            _context.Departments.Update(department);
 
-            context.Departments.Update(department);
-
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }

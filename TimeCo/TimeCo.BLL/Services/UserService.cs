@@ -12,10 +12,22 @@ namespace TimeCo.BLL.Services
 {
     public class UserService
     {
-        public static List<UserDTO> GetUsersDepartments()
+        private TimeCoContext _context;
+        private DepartmentRepository _departmentRepository;
+        private UserRepository _userRepository;
+        private TimeCo.Utilities.Converter _converter;
+        public UserService()
         {
-            var userList = from user in UserRepository.GetAllUsers()
-                           join department in DepartmentRepository.GetDepartments() on
+            _context = new TimeCoContext();
+            _departmentRepository = new DepartmentRepository();
+            _userRepository = new UserRepository(); 
+            _converter = new Utilities.Converter();
+        }
+
+        public List<UserDTO> GetUsersDepartments()
+        {
+            var userList = from user in _userRepository.GetAllUsers()
+                           join department in _departmentRepository.GetDepartments() on
                            user.DepartmentId equals department.Id
                            select new UserDTO
                            {
@@ -28,9 +40,9 @@ namespace TimeCo.BLL.Services
             return userList.ToList();
         }
 
-        public static void GetAllUsers()
+        public void GetAllUsers()
         {
-            List<User> userList = UserRepository.GetUsersList();
+            List<User> userList = _userRepository.GetUsersList();
             int x = 30, y = 10;
             foreach (User user in userList)
             {
@@ -40,34 +52,31 @@ namespace TimeCo.BLL.Services
             }
         }
 
-        public static bool CheckUser(string username, string password)
+        public bool CheckUser(string username, string password)
         {
-            using TimeCoContext context = new TimeCoContext();
 
-            var user = context.Users.FirstOrDefault(user => user.Username == username && user.Password == password);
+            var user = _context.Users.FirstOrDefault(user => user.Username == username && user.Password == password);
 
             return user != null;
         }
 
-        public static bool CheckAdmin(string username)
+        public bool CheckAdmin(string username)
         {
-            using TimeCoContext context = new TimeCoContext();
-
-            var user = context.Users.FirstOrDefault(user => user.Username == username);
-            var role = context.Roles.FirstOrDefault(role => role.Name == "Admin");
+            var user = _context.Users.FirstOrDefault(user => user.Username == username);
+            var role = _context.Roles.FirstOrDefault(role => role.Name == "Admin");
             return role!=null;
         }
 
-        public static void GetUser(string username)
+        public void GetUser(string username)
         {
-            User user = UserRepository.GetUser(username);
+            User user = _userRepository.GetUser(username);
 
             //Console.WriteLine($"Username: {user.Username}");
         }
 
-        public static void GetAllAdmins()
+        public void GetAllAdmins()
         {
-            List<User> adminList = UserRepository.GetAllAdmins();
+            List<User> adminList = _userRepository.GetAllAdmins();
 
             /*foreach (User user in adminList)
             {
@@ -75,27 +84,24 @@ namespace TimeCo.BLL.Services
             }*/
         }
 
-        public static void MakeUserAnAdmin(string username)
+        public void MakeUserAnAdmin(string username)
         {
 
-            using TimeCoContext context = new TimeCoContext();
-
-            var user = context.Users.FirstOrDefault(user => user.Username == username);
-            var role = context.Roles.FirstOrDefault(role => role.Name == "Admin");
+            var user = _context.Users.FirstOrDefault(user => user.Username == username);
+            var role = _context.Roles.FirstOrDefault(role => role.Name == "Admin");
 
             if (user != null)
             {
                 user.RoleId = role.Id;
             }
-            UserRepository.MakeUserAnAdmin(user);
+            _userRepository.MakeUserAnAdmin(user);
         }
 
-        public static void AddUser(string firstName, string lastName, string email, string password, string username, string departmentName, string roleName = "Standard")
+        public  void AddUser(string firstName, string lastName, string email, string password, string username, string departmentName, string roleName = "Standard")
         {
-            using TimeCoContext context = new TimeCoContext();
 
-            var department = context.Departments.FirstOrDefault(item => item.Name == departmentName);
-            var role = context.Roles.FirstOrDefault(role => role.Name == roleName);
+            var department = _context.Departments.FirstOrDefault(item => item.Name == departmentName);
+            var role = _context.Roles.FirstOrDefault(role => role.Name == roleName);
 
             User user = new User()
             {
@@ -104,38 +110,34 @@ namespace TimeCo.BLL.Services
                 Email = email,
                 Password = password,
                 Username = username,
-                CreatedAt = TimeCo.Utilities.Converter.GetCurrentTime(),
-                ModifiedAt = TimeCo.Utilities.Converter.GetCurrentTime(),
+                CreatedAt = _converter.GetCurrentTime(),
+                ModifiedAt = _converter.GetCurrentTime(),
                 MainVacationHours = 200,
                 RoleId = role.Id,
                 DepartmentId = department.Id
             };
 
-            UserRepository.AddUser(user);
+            _userRepository.AddUser(user);
         }
 
-        public static void UpdateUser(string username, string firstName, string lastName, string newUsername)
+        public void UpdateUser(string username, string firstName, string lastName, string newUsername)
         {
-            using TimeCoContext context = new TimeCoContext();
-
-            var user = context.Users.FirstOrDefault(user => user.Username == username);
+            var user = _context.Users.FirstOrDefault(user => user.Username == username);
             user.Username = newUsername;
             user.FirstName = firstName;
             user.LastName = lastName;
 
-            UserRepository.UpdateUser(user);
+            _userRepository.UpdateUser(user);
 
         }
 
-        public static void AddUserToDepartment(string username, string departmentName)
+        public void AddUserToDepartment(string username, string departmentName)
         {
-            using TimeCoContext context = new TimeCoContext();
-
-            var user = context.Users.FirstOrDefault(user => user.Username == username);
-            var department = context.Departments.FirstOrDefault(department => department.Name == departmentName);
+            var user =_context.Users.FirstOrDefault(user => user.Username == username);
+            var department =_context.Departments.FirstOrDefault(department => department.Name == departmentName);
             user.DepartmentId = department.Id;
             
-            UserRepository.UpdateUser(user);
+            _userRepository.UpdateUser(user);
 
         }
     }

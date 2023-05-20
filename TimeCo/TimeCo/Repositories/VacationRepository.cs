@@ -13,22 +13,27 @@ namespace TimeCo.DAL.Repositories
 {
     public class VacationRepository
     {
-        public static Vacation GetUserVacation(string username)
+        private TimeCoContext _context;
+        private UserRepository _userRepository;
+
+        public VacationRepository()
         {
-            using TimeCoContext context = new TimeCoContext();
-
-            User user = UserRepository.GetUser(username);
-
-            return context.Vacations.Where(x => x.UserId == user.Id).FirstOrDefault();
+            _context = new TimeCoContext();
+            _userRepository = new UserRepository();
         }
 
-        public static void AddVacation(Vacation vacation)
+        public Vacation GetUserVacation(string username)
         {
-            using TimeCoContext context = new TimeCoContext();
+            User user = _userRepository.GetUser(username);
 
-            context.Vacations.Add(vacation);
+            return _context.Vacations.Where(x => x.UserId == user.Id).FirstOrDefault();
+        }
 
-            context.SaveChanges();
+        public void AddVacation(Vacation vacation)
+        {
+            _context.Vacations.Add(vacation);
+
+            _context.SaveChanges();
         }
 
     }

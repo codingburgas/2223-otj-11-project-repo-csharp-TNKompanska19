@@ -8,7 +8,7 @@ namespace TimeCo.Utilities
 {
     public class ConsoleColour
     {
-        public static ConsoleColor TextColour(string colorString)
+        public ConsoleColor TextColour(string colorString)
         { 
             ConsoleColor color;
             switch (colorString.ToLower())

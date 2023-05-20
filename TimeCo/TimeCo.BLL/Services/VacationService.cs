@@ -10,26 +10,38 @@ using TimeCo.DAL.Data;
 namespace TimeCo.BLL.Services
 {
     public class VacationService
-    { 
-        public static void GetUserVacation(string username)
+    {
+        private TimeCoContext _context;
+        private VacationRepository _vacationRepository;
+        private UserRepository _userRepository;
+        private TimeCo.Utilities.Converter _converter;
+
+        public VacationService()
         {
-            Vacation userVacation = VacationRepository.GetUserVacation(username);
+            _context = new TimeCoContext();
+            _vacationRepository = new VacationRepository();
+            _userRepository = new UserRepository();
+            _converter = new Utilities.Converter();
+        }
+
+        public void GetUserVacation(string username)
+        {
+            Vacation userVacation = _vacationRepository.GetUserVacation(username);
             //Console.WriteLine($"Name: {userVacation.Name}, Description: {userVacation.Description}, Status: {userVacation.Status}");
         }
 
-        public static void AddUserVacation(string name, string description, string startDate, string endDate, string username, string status = "Pending", string isMainVacation = "yes")
+        public void AddUserVacation(string name, string description, string startDate, string endDate, string username, string status = "Pending", string isMainVacation = "yes")
         {
-            using TimeCoContext context = new TimeCoContext();
 
-            var user = context.Users.FirstOrDefault(user => user.Username == username);
+            var user = _context.Users.FirstOrDefault(user => user.Username == username);
 
             bool flag = false;
 
             if (isMainVacation == "yes")
             {
                 flag = true;
-                user.MainVacationHours -= TimeCo.Utilities.Converter.GetDaysVacation
-                (TimeCo.Utilities.Converter.ToDate(startDate), TimeCo.Utilities.Converter.ToDate(endDate)) * 8;
+                user.MainVacationHours -= _converter.GetDaysVacation
+                (_converter.ToDate(startDate), _converter.ToDate(endDate)) * 8;
             }
 
             Vacation vacation = new Vacation()
@@ -37,14 +49,14 @@ namespace TimeCo.BLL.Services
                 Name = name,
                 Description = description,
                 Status = status,
-                StartDate = TimeCo.Utilities.Converter.ToDate(startDate),
-                EndDate = TimeCo.Utilities.Converter.ToDate(endDate),
+                StartDate = _converter.ToDate(startDate),
+                EndDate = _converter.ToDate(endDate),
                 isMainVacation = flag,
                 UserId = user.Id
             };
 
-            UserRepository.UpdateUser(user);
-            VacationRepository.AddVacation(vacation);
+            _userRepository.UpdateUser(user);
+            _vacationRepository.AddVacation(vacation);
         }
     }
 }
