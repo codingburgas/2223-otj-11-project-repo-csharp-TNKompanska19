@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using TimeCo.DAL.Repositories;
 using TimeCo.DAL.Entities;
 using TimeCo.DAL.Data;
+using TimeCo.BLL.Models;
+using Microsoft.SqlServer.Management.Smo;
 
 namespace TimeCo.BLL.Services
 {
@@ -23,27 +25,13 @@ namespace TimeCo.BLL.Services
             _userRepository = new UserRepository();
             _converter = new Utilities.Converter();
         }
-
-        public void GetUserVacation(string username)
-        {
-            Vacation userVacation = _vacationRepository.GetUserVacation(username);
-            //Console.WriteLine($"Name: {userVacation.Name}, Description: {userVacation.Description}, Status: {userVacation.Status}");
-        }
-
-        public void AddUserVacation(string name, string description, string startDate, string endDate, string username, string status = "Pending", string isMainVacation = "yes")
+        public void AddUserVacation(string name, string description, string startDate, string endDate, string username, string status = "Pending")
         {
 
             var user = _context.Users.FirstOrDefault(user => user.Username == username);
 
-            bool flag = false;
-
-            if (isMainVacation == "yes")
-            {
-                flag = true;
-                user.MainVacationHours -= _converter.GetDaysVacation
-                (_converter.ToDate(startDate), _converter.ToDate(endDate)) * 8;
-            }
-
+            bool flag = true;
+            
             Vacation vacation = new Vacation()
             {
                 Name = name,
@@ -55,8 +43,79 @@ namespace TimeCo.BLL.Services
                 UserId = user.Id
             };
 
-            _userRepository.UpdateUser(user);
             _vacationRepository.AddVacation(vacation);
         }
+
+        public void ApproveVacation(int id) 
+        {
+            using (var context = new TimeCoContext())
+            {
+                var vacation = context.Vacations.FirstOrDefault(item => item.Id == id);
+                var user = context.Users.FirstOrDefault(item => item.Id == vacation.UserId);
+                if (vacation != null)
+                {
+                    vacation.Status = "Approved";
+                    user.MainVacationHours -= _converter.GetDaysVacation(vacation.StartDate, vacation.EndDate)*8;
+                    _vacationRepository.UpdateVacation(vacation);
+                    _userRepository.UpdateUser(user);
+                }
+            }
+        }
+
+        public void DenyVacation(int id)
+        {
+            using (var context = new TimeCoContext()) 
+            {
+                var vacation = context.Vacations.FirstOrDefault(item => item.Id == id);
+
+                if (vacation != null)
+                {
+                    vacation.Status = "Denied";
+                    _vacationRepository.UpdateVacation(vacation);
+                }
+            }
+        }
+
+
+        public List<VacationDTO> GetPendingVacations()
+        {
+            using (_context)
+            {
+                var results = from vacation in _context.Vacations
+                              join user in _context.Users on vacation.UserId equals user.Id
+                              where vacation.Status == "Pending"
+                              select new VacationDTO
+                              {
+                                  Id = vacation.Id,
+                                  Username = user.Username,
+                                  Description = vacation.Description,
+                                  StartDate = vacation.StartDate,
+                                  EndDate = vacation.EndDate
+                              };
+
+                List<VacationDTO> result = results.ToList();
+                return result;
+            }
+        }
+
+        public List<VacationDTO> GetUserVacation(string username)
+        {
+            using (_context)
+            {
+                var results = from vacation in _context.Vacations
+                              join user in _context.Users on vacation.UserId equals user.Id
+                              where user.Username == username
+                              select new VacationDTO
+                              {
+                                  Username = user.Username,
+                                  StartDate = vacation.StartDate,
+                                  EndDate = vacation.EndDate,
+                              };
+
+                List<VacationDTO> result = results.ToList();
+                return result;
+            }
+        }
+
     }
 }

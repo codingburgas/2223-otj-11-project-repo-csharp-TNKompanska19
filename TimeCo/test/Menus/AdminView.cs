@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeCo.DAL.Data;
 using TimeCo.DAL.Repositories;
+using TimeCo.BLL.Models;
 using static System.Formats.Asn1.AsnWriter;
+using Microsoft.AspNetCore.Mvc.Internal;
 
 namespace test.Menus
 {
@@ -14,6 +16,8 @@ namespace test.Menus
         private TimeCo.BLL.Services.DepartmentService _departmentService;
         private TimeCo.BLL.Services.UserService _userService;
         private TimeCo.BLL.Services.ScheduleService _scheduleService;
+        private TimeCo.BLL.Services.VacationService _vacationService;
+        private TimeCo.Utilities.Converter _converter;
 
         private Figures _figures;
         public AdminView()
@@ -21,6 +25,8 @@ namespace test.Menus
             _departmentService = new TimeCo.BLL.Services.DepartmentService();
             _userService = new TimeCo.BLL.Services.UserService();
             _scheduleService = new TimeCo.BLL.Services.ScheduleService();
+            _vacationService = new TimeCo.BLL.Services.VacationService();
+            _converter = new TimeCo.Utilities.Converter();
             _figures = new Figures();
         }
 
@@ -264,7 +270,14 @@ namespace test.Menus
                             Console.WriteLine("Enter the name of the department in which you want to see the users:");
                             Console.SetCursorPosition(25, 22);
                             string name = Console.ReadLine();
-                            _departmentService.GetUsersDepartments(name);
+                            var result = _departmentService.GetUsersDepartments(name);
+                            int y = 20;
+                            foreach (var item in result)
+                            {
+                                Console.SetCursorPosition(25, y);
+                                Console.WriteLine("{0}: {1} {2}", item.DepartmentName, item.FirstName, item.LastName);
+                                y++;
+                            }
                             Console.ReadLine();
                             break;
                         case 2:
@@ -417,13 +430,131 @@ namespace test.Menus
                                 Console.WriteLine("Enter the username of the user you want to view schedule:");
                                 Console.SetCursorPosition(40, 22);
                                 string name = Console.ReadLine();
-                                _scheduleService.GetUserSchedule(name);
+                                var result = _scheduleService.GetUserSchedule(name);
+                                int y = 25;
+                                foreach (var item in result)
+                                {
+                                    Console.SetCursorPosition(35, y);
+                                    Console.WriteLine("Dates: {0} - {1}; Hours: {2} - {3}", _converter.DateOnly(item.StartDate), _converter.DateOnly(item.EndDate), item.StartHour, item.EndHour);
+                                    y++;
+                                }
                                 Console.ReadLine();
-                                /*Console.Clear();
+                            }
+                            break;
+                    }
+                }
+
+                else if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    AdminPanelOptions(username);
+                }
+
+            }
+        }
+
+
+        public void AdminPanelVacationOptions(string username)
+        {
+            int selectedOption = 1;
+            while (true)
+            {
+                Console.Clear();
+
+                _figures.Border(0, 0, 51);
+                _figures.TeamFigure(10, 33);
+                _figures.TimeCoLabel(30, 1);
+                _figures.Button(43, 11, selectedOption == 1 ? "blue" : "cyan");
+                _figures.Button(43, 16, selectedOption == 2 ? "blue" : "cyan");
+
+
+                _figures.TextInButton(44, 13, "Approve/Deny vacation", selectedOption == 1 ? "blue" : "cyan");
+                _figures.TextInButton(46, 18, "View user vacation", selectedOption == 2 ? "blue" : "cyan");
+
+
+
+                _figures.Border(107, 0, 51);
+
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    selectedOption--;
+                    if (selectedOption < 1)
+                    {
+                        selectedOption = 2;
+                    }
+                }
+
+                else if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    selectedOption++;
+                    if (selectedOption > 2)
+                    {
+                        selectedOption = 1;
+                    }
+                }
+
+                else if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    switch (selectedOption)
+                    {
+                        case 1:
+                            {
+                                Console.Clear();
                                 _figures.Border(0, 0, 51);
                                 _figures.TimeCoLabel(30, 1);
                                 _figures.Border(107, 0, 51);
-                                AdminPanelOptions(username);*/
+                                List<VacationDTO> result = _vacationService.GetPendingVacations();
+                                int y = 20;
+                                foreach (var item in result)
+                                {
+                                    Console.SetCursorPosition(25, y);
+                                    Console.WriteLine("{0}: {1} ({2}) -  from {3} to {4}",item.Id, item.Username, item.Description, _converter.DateOnly(item.StartDate), _converter.DateOnly(item.EndDate));
+                                    y++;
+                                }
+                                Console.ReadLine();
+                                Console.Clear();
+                                _figures.Border(0, 0, 51);
+                                _figures.TimeCoLabel(30, 1);
+                                _figures.Border(107, 0, 51);
+                                Console.SetCursorPosition(25, 21);
+                                Console.WriteLine("Enter the id of the vacation you want to approve/deny:");
+                                Console.SetCursorPosition(25, 22);
+                                int id = int.Parse(Console.ReadLine());
+                                Console.SetCursorPosition(25, 24);
+                                Console.WriteLine("Enter y for approving or n for denying:");
+                                Console.SetCursorPosition(25, 25);
+                                string choice = Console.ReadLine();
+                                if (choice == "y")
+                                {
+                                    _vacationService.ApproveVacation(id);
+                                }
+                                else
+                                {
+                                    _vacationService.DenyVacation(id);
+                                }
+                            }
+                            break;
+                        case 2:
+                            {
+                                Console.Clear();
+                                _figures.Border(0, 0, 51);
+                                _figures.TimeCoLabel(30, 1);
+                                _figures.Border(107, 0, 51);
+                                Console.SetCursorPosition(40, 21);
+                                Console.WriteLine("Enter the username of the user you want to view vacation:");
+                                Console.SetCursorPosition(40, 22);
+                                string name = Console.ReadLine();
+                                var result = _vacationService.GetUserVacation(name);
+                                int y = 25;
+                                foreach (var item in result)
+                                {
+                                    Console.SetCursorPosition(35, y);
+                                    Console.WriteLine("Dates: {0} - {1}; Username: {2}", _converter.DateOnly(item.StartDate), _converter.DateOnly(item.EndDate), item.Username);
+                                    y++;
+                                }
+                                Console.ReadLine();
                             }
                             break;
                     }
@@ -490,7 +621,6 @@ namespace test.Menus
                             _figures.TimeCoLabel(30, 1);
                             _figures.Border(107, 0, 51);
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                            _userService.GetAllUsers();
                             AdminPanelUserOptions(username);
                             break;
                         case 2:
@@ -499,7 +629,6 @@ namespace test.Menus
                             _figures.TimeCoLabel(30, 1);
                             _figures.Border(107, 0, 51);
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                            _departmentService.GetAllDepartments();
                             AdminPanelDepartmentOptions(username);
                             break;
                         case 3:
@@ -508,12 +637,16 @@ namespace test.Menus
                             _figures.TimeCoLabel(30, 1);
                             _figures.Border(107, 0, 51);
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                            _departmentService.GetAllDepartments();
                             AdminPanelScheduleOptions(username);
                             break;
 					    case 4:
-							Console.WriteLine("Vacations");
-							break;
+                            Console.Clear();
+                            _figures.Border(0, 0, 51);
+                            _figures.TimeCoLabel(30, 1);
+                            _figures.Border(107, 0, 51);
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            AdminPanelVacationOptions(username);
+                            break;
                     }
                 }
 

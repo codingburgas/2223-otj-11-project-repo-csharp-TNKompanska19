@@ -64,7 +64,7 @@ namespace TimeCo.BLL.Services
             _departmentRepository.UpdateDepartment(department);
         }
 
-        public void GetUsersDepartments(string departmentName)
+        public List<DepartmentDTO> GetUsersDepartments(string departmentName)
         {
             using (_context)
             {
@@ -72,17 +72,15 @@ namespace TimeCo.BLL.Services
                               join user in _context.Users
                               on department.Id equals user.DepartmentId
                               where department.Name == departmentName
-                              select new { user.FirstName, user.LastName, department.Name };
+                              select new DepartmentDTO
+                              { 
+                                  FirstName = user.FirstName, 
+                                  LastName = user.LastName, 
+                                  DepartmentName = department.Name 
+                              };
 
-                int y = 25;
-                foreach (var item in results.ToList())
-                {
-                    Console.SetCursorPosition(40, y);
-                    Console.WriteLine("{0}: {1} {2}", item.Name, item.FirstName, item.LastName);
-                    y++;
-                }
-
-              
+                List<DepartmentDTO> result = results.ToList();
+                return result;  
             }
         }
 

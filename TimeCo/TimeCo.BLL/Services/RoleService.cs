@@ -18,10 +18,10 @@ namespace TimeCo.BLL.Services
             _context = new TimeCoContext();
             _roleRepository = new RoleRepository();
         }
-        public void GetUserRole(string username)
+        public Role GetUserRole(string username)
         {
-                Role userRole = _roleRepository.GetUserRole(username);
-               // Console.WriteLine($"Role: {userRole.Name}, Description: {userRole.Description}");
+            Role userRole = _roleRepository.GetUserRole(username);
+            return userRole;
         }
     }
 }

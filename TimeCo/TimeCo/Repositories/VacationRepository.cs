@@ -29,6 +29,11 @@ namespace TimeCo.DAL.Repositories
             return _context.Vacations.Where(x => x.UserId == user.Id).FirstOrDefault();
         }
 
+        public List<Vacation> GetPendingVacationList()
+        {
+            return _context.Vacations.Where(x => x.Status == "Pending").ToList();
+        }
+
         public void AddVacation(Vacation vacation)
         {
             _context.Vacations.Add(vacation);
@@ -36,5 +41,11 @@ namespace TimeCo.DAL.Repositories
             _context.SaveChanges();
         }
 
+        public void UpdateVacation(Vacation vacation)
+        {
+            _context.Vacations.Update(vacation);
+
+            _context.SaveChanges();
+        }
     }
 }

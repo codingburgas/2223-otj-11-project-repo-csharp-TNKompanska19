@@ -8,6 +8,7 @@ using TimeCo.DAL.Entities;
 using TimeCo.Utilities;
 using TimeCo.DAL.Data;
 using Microsoft.SqlServer.Management.HadrData;
+using TimeCo.BLL.Models;
 
 namespace TimeCo.BLL.Services
 {
@@ -41,28 +42,23 @@ namespace TimeCo.BLL.Services
             _scheduleRepository.AddSchedule(schedule);
         }
 
-        public void GetUserSchedule(string username)
+        public List<ScheduleDTO> GetUserSchedule(string username)
         {
             using (_context)
             {
                 var results = from schedule in _context.Schedules
                               join user in _context.Users on schedule.UserId equals user.Id
                               where user.Username == username
-                              select new
+                              select new ScheduleDTO
                               {
-                                  schedule.StartDate,
-                                  schedule.EndDate,
-                                  schedule.StartHour,
-                                  schedule.EndHour
-                              };
+                                  StartDate = schedule.StartDate,
+                                  EndDate = schedule.EndDate,
+                                  StartHour = schedule.StartHour,
+                                  EndHour = schedule.EndHour
+                              };  
 
-                int y = 25;
-                foreach (var item in results.ToList())
-                {
-                    Console.SetCursorPosition(35, y);
-                    Console.WriteLine("Dates: {0} - {1}; Hours: {2} - {3}", _converter.DateOnly(item.StartDate), _converter.DateOnly(item.EndDate), item.StartHour, item.EndHour);
-                    y++;
-                }
+                List<ScheduleDTO> result = results.ToList();
+                return result;
             }
         }
     }
