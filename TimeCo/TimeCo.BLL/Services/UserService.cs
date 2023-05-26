@@ -16,12 +16,14 @@ namespace TimeCo.BLL.Services
         private DepartmentRepository _departmentRepository;
         private UserRepository _userRepository;
         private TimeCo.Utilities.Converter _converter;
+        private TimeCo.Utilities.PasswordHash _passwordHash;
         public UserService()
         {
             _context = new TimeCoContext();
             _departmentRepository = new DepartmentRepository();
             _userRepository = new UserRepository(); 
             _converter = new Utilities.Converter();
+            _passwordHash = new Utilities.PasswordHash();
         }
 
         public List<UserDTO> GetUsersDepartments()
@@ -55,9 +57,9 @@ namespace TimeCo.BLL.Services
         public bool CheckUser(string username, string password)
         {
 
-            var user = _context.Users.FirstOrDefault(user => user.Username == username && user.Password == password);
-
-            return user != null;
+            var user = _context.Users.FirstOrDefault(user => user.Username == username);
+            bool checkPass = _passwordHash.VerifyPassword(password, user.Password);
+            return user != null && checkPass == true;
         }
 
         public bool CheckAdmin(string username)
@@ -108,7 +110,7 @@ namespace TimeCo.BLL.Services
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
-                Password = password,
+                Password = _passwordHash.HashPassword(password),
                 Username = username,
                 CreatedAt = _converter.GetCurrentTime(),
                 ModifiedAt = _converter.GetCurrentTime(),

@@ -71,7 +71,11 @@ namespace test.Menus
                             _registrationForm.Login();
                             break;
                         case 2:
-                            Console.WriteLine("Selected: Change password");
+                            Console.Clear();
+                            _figures.Border(0, 0, 51);
+                            _figures.TimeCoLabel(30, 1);
+                            _figures.Border(107, 0, 51);
+                            _registrationForm.ChangePassword();
                             break;
                         case 3:
                             Environment.Exit(1);
