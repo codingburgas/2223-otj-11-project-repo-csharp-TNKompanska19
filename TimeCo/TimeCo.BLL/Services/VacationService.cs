@@ -8,6 +8,8 @@ using TimeCo.DAL.Entities;
 using TimeCo.DAL.Data;
 using TimeCo.BLL.Models;
 using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.XEvent;
+using Microsoft.EntityFrameworkCore;
 
 namespace TimeCo.BLL.Services
 {
@@ -28,6 +30,7 @@ namespace TimeCo.BLL.Services
         public void AddUserVacation(string name, string description, string startDate, string endDate, string username, string status = "Pending")
         {
 
+            
             var user = _context.Users.FirstOrDefault(user => user.Username == username);
 
             bool flag = true;
@@ -98,6 +101,23 @@ namespace TimeCo.BLL.Services
             }
         }
 
+        public double GetUserMainVacHours(string username)
+        {
+            double mainVacationHours;
+
+            using (var context = new TimeCoContext())
+            {
+                var user = context.Users.FirstOrDefault(item => item.Username == username);
+
+                context.Entry(user).State = EntityState.Detached;
+
+                mainVacationHours = user.MainVacationHours;
+            }
+
+            return mainVacationHours;
+        }
+
+
         public List<VacationDTO> GetUserVacation(string username)
         {
             using (_context)
@@ -107,6 +127,8 @@ namespace TimeCo.BLL.Services
                               where user.Username == username
                               select new VacationDTO
                               {
+                                  Name = vacation.Name,
+                                  Description = vacation.Description,
                                   Username = user.Username,
                                   StartDate = vacation.StartDate,
                                   EndDate = vacation.EndDate,

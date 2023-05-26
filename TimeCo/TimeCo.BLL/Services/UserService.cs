@@ -64,7 +64,7 @@ namespace TimeCo.BLL.Services
         {
             var user = _context.Users.FirstOrDefault(user => user.Username == username);
             var role = _context.Roles.FirstOrDefault(role => role.Name == "Admin");
-            return role!=null;
+            return user.RoleId == role.Id;
         }
 
         public void GetUser(string username)

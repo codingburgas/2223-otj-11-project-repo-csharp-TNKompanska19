@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeCo.PL.Menus;
 
 namespace test.Menus
 {
@@ -11,12 +12,14 @@ namespace test.Menus
         private AdminView _adminView;
         private MenuAccess _menuAccess;
         private Figures _figures;
+        private UserView _userView;
         private TimeCo.BLL.Services.UserService _userService;
         public RegistrationForm(MenuAccess menuAccess)
         {
             _adminView = new AdminView();
             _userService = new TimeCo.BLL.Services.UserService();
             _figures = new Figures();
+            _userView = new UserView();
             _menuAccess = menuAccess;
         }
 
@@ -48,7 +51,7 @@ namespace test.Menus
                     _figures.Border(0, 0, 51);
                     _figures.TimeCoLabel(30, 1);
                     _figures.Border(107, 0, 51);
-                    //standardOptions(username);
+                    _userView.UserPanelOptions(username);
                 }
             }
             else

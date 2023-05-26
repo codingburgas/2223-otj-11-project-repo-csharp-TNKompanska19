@@ -12,5 +12,6 @@ namespace TimeCo.BLL.Models
         public DateTime EndDate { get; set; }
         public TimeSpan StartHour { get; set; }
         public TimeSpan EndHour { get; set; }
+        public string Username { get; set; }
     }
 }

@@ -61,5 +61,30 @@ namespace TimeCo.BLL.Services
                 return result;
             }
         }
+
+        public List<ScheduleDTO> GetCollsSchedule(string username)
+        {
+            using (var context = new TimeCoContext())
+            {
+                var user = context.Users.FirstOrDefault(u => u.Username == username);
+                var userDepartment = context.Departments.FirstOrDefault(d => d.Id == user.DepartmentId);
+
+                var results = from users in context.Users
+                              join schedule in context.Schedules on users.Id equals schedule.UserId
+                              where userDepartment.Id == user.DepartmentId
+                              select new ScheduleDTO
+                              {
+                                  Username = users.Username,
+                                  StartDate = schedule.StartDate,
+                                  EndDate = schedule.EndDate,
+                                  StartHour = schedule.StartHour,
+                                  EndHour = schedule.EndHour
+                              };
+
+                List<ScheduleDTO> result = results.ToList();
+                return result;
+            }
+        }
+
     }
 }
