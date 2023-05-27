@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeCo.Utilities", "Utiliti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeCo.PL", "test\TimeCo.PL.csproj", "{8F327B3A-A532-4B80-B006-E08097FF44E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeCo-UnitTest", "TimeCo-UnitTest\TimeCo-UnitTest.csproj", "{66597A22-F9E4-468F-A14E-CA0AC1169966}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8F327B3A-A532-4B80-B006-E08097FF44E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F327B3A-A532-4B80-B006-E08097FF44E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F327B3A-A532-4B80-B006-E08097FF44E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66597A22-F9E4-468F-A14E-CA0AC1169966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66597A22-F9E4-468F-A14E-CA0AC1169966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66597A22-F9E4-468F-A14E-CA0AC1169966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66597A22-F9E4-468F-A14E-CA0AC1169966}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

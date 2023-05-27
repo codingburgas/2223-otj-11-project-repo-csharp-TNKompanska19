@@ -12,7 +12,7 @@ namespace TimeCo.Utilities
         public string DateOnly(DateTime dateTime)
         {
             DateTime dateOnly = dateTime.Date;
-            return dateOnly.ToString("yyyy-MM-dd");
+            return dateOnly.ToString("dd/MM/yyyy");
         }
        
         // Method for parsing string to DateTime
