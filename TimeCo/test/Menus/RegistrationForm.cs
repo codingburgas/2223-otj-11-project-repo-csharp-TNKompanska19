@@ -41,9 +41,8 @@ namespace test.Menus
             Console.WriteLine("ENTER PASSWORD: "); 
             Console.SetCursorPosition(45, 25);
             string pass = Console.ReadLine();
-            string password = _passwordHash.HashPassword(pass);
-            if (_userService.CheckUser(username, password) == true)
-            {
+            if (_userService.CheckUser(username, pass) == true)
+            { 
                 // If user is admin
                 if (_roleService.CheckAdmin(username) == true)
                 {
@@ -84,9 +83,8 @@ namespace test.Menus
             Console.WriteLine("ENTER PASSWORD: ");
             Console.SetCursorPosition(45, 25);
             string pass = Console.ReadLine();
-            string password = _passwordHash.HashPassword(pass);
             // If user is valid
-            if (_userService.CheckUser(username, password) == true)
+            if (_userService.CheckUser(username, pass) == true)
             {
                 // Enter new password and change it
                 Console.SetCursorPosition(45, 27);
