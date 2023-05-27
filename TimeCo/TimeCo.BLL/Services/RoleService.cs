@@ -11,17 +11,23 @@ namespace TimeCo.BLL.Services
 {
     public class RoleService
     {
+        // Private fields
         private TimeCoContext _context;
         private RoleRepository _roleRepository;
+
+        // Constructor
         public RoleService()
         {
             _context = new TimeCoContext();
             _roleRepository = new RoleRepository();
         }
-        public Role GetUserRole(string username)
+
+        // Function for checking if the user is admin
+        public bool CheckAdmin(string username)
         {
-            Role userRole = _roleRepository.GetUserRole(username);
-            return userRole;
+            var user = _context.Users.FirstOrDefault(user => user.Username == username);
+            var role = _context.Roles.FirstOrDefault(role => role.Name == "Admin");
+            return user.RoleId == role.Id;
         }
     }
 }

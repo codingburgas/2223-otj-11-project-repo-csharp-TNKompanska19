@@ -13,34 +13,27 @@ namespace TimeCo.BLL.Services
 {
     public class DepartmentService
     {
+        // Private fields
         private TimeCoContext _context;
         private DepartmentRepository _departmentRepository;
+
+        // Constructor
         public DepartmentService()
         {
             _context = new TimeCoContext();
             _departmentRepository = new DepartmentRepository();
         }
 
-        public void GetAllDepartments()
+        // Method for viewing all departments
+        public List<Department> GetAllDepartments()
         {
             List<Department> departmentList = _departmentRepository.GetDepartmentsList();
 
-            int y = 15;
-            foreach (Department department in departmentList)
-            {
-                Console.SetCursorPosition(30, y);
-                Console.WriteLine($"ID: {department.Id}, Name: {department.Name}, Description: {department.Description}");
-                y++;
-            }
-        }
+            return departmentList;
+            
+        }  
 
-        public void GetUserDepartment(string username)
-        {
-            Department userDepartment = _departmentRepository.GetUserDepartment(username);
-
-            //Console.WriteLine($"Name: {userDepartment.Name}, Description: {userDepartment.Description}");
-        }
-
+        // Method for adding department 
         public void AddDepartment(string name, string description)
         {
             Department department = new Department()
@@ -52,6 +45,7 @@ namespace TimeCo.BLL.Services
             _departmentRepository.AddDepartment(department);
         }
 
+        // Method for editing department
         public void UpdateDepartment(string name, string editedName, string editedDescription)
         {
             var department = _context.Departments.FirstOrDefault(item => item.Name == name);
@@ -64,6 +58,7 @@ namespace TimeCo.BLL.Services
             _departmentRepository.UpdateDepartment(department);
         }
 
+        // Method for returning all users in a given department
         public List<DepartmentDTO> GetUsersDepartments(string departmentName)
         {
             using (_context)

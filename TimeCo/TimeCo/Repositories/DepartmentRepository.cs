@@ -11,32 +11,24 @@ namespace TimeCo.DAL.Repositories
 {
     public class DepartmentRepository
     {
+        // Private fields
         private TimeCoContext _context;
         private UserRepository _userRepository;
+
+        // Constructor
         public DepartmentRepository()
         {
             _context = new TimeCoContext();
             _userRepository = new UserRepository();
         }
 
-        public IQueryable<Department> GetDepartments()
-        {
-            return _context.Departments.Select(x => x);
-        }
-
+        // Method for returning all departments
         public List<Department> GetDepartmentsList()
         {
             return _context.Departments.Select(x => x).ToList();
         }
 
-
-        public Department GetUserDepartment(string username)
-        {
-            User user = _userRepository.GetUser(username);
-
-            return _context.Departments.Where(x => x.Id == user.DepartmentId).FirstOrDefault();
-        }
-
+        // Method for adding departments
         public void AddDepartment(Department department)
         {
             _context.Departments.Add(department);
@@ -44,6 +36,7 @@ namespace TimeCo.DAL.Repositories
             _context.SaveChanges();
         }
 
+        // Method for updating department
         public void UpdateDepartment(Department department)
         {
             _context.Departments.Update(department);

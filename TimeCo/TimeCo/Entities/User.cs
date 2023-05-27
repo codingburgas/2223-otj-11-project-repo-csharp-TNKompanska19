@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TimeCo.DAL.Entities;
 
+// Entity for users
 public partial class User
 {
     [Key]

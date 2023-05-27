@@ -11,41 +11,28 @@ namespace TimeCo.DAL.Repositories
 {
     public class UserRepository
     {
+        // Private field
         private TimeCoContext _context;
 
+        // Constructor
         public UserRepository()
         {
             _context = new TimeCoContext();
         }
 
-        public IQueryable<User> GetAllUsers()
-        {
-            return _context.Users.Select(x => x);
-        }
-
+        // Method for returning all users
         public  List<User> GetUsersList()
-        {
-
+        { 
             return _context.Users.Select(x => x).ToList();
         }
+
+        // Method for returning user by given username
         public User GetUser(string username)
         {
             return _context.Users.Where(x => x.Username == username).FirstOrDefault();
         }
 
-        public int GetUserId(string username)
-        {
-            var user = _context.Users.Where(x => x.Username == username).FirstOrDefault();
-            return user.Id;
-        }
-        public List<User> GetAllAdmins()
-        {
-            
-            var role = _context.Roles.FirstOrDefault(role => role.Name == "Admin");
-
-            return _context.Users.Where(x => x.RoleId == role.Id).ToList();
-        }
-
+        // Method for adding user
         public void AddUser(User user)
         {
             _context.Users.Add(user);
@@ -53,6 +40,7 @@ namespace TimeCo.DAL.Repositories
             _context.SaveChanges();
         }
 
+        // Method for making user an admin
         public void MakeUserAnAdmin(User user)
         {
             _context.Users.Update(user);
@@ -60,6 +48,7 @@ namespace TimeCo.DAL.Repositories
             _context.SaveChanges();
         }
 
+        // Method for editin user
         public void UpdateUser(User user)
         {
             _context.Users.Update(user);

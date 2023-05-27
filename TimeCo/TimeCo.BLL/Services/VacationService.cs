@@ -15,11 +15,13 @@ namespace TimeCo.BLL.Services
 {
     public class VacationService
     {
+        // Private fields
         private TimeCoContext _context;
         private VacationRepository _vacationRepository;
         private UserRepository _userRepository;
         private TimeCo.Utilities.Converter _converter;
 
+        // Constructor
         public VacationService()
         {
             _context = new TimeCoContext();
@@ -27,10 +29,10 @@ namespace TimeCo.BLL.Services
             _userRepository = new UserRepository();
             _converter = new Utilities.Converter();
         }
+
+        // Method for adding vacation when user requests one
         public void AddUserVacation(string name, string description, string startDate, string endDate, string username, string status = "Pending")
         {
-
-            
             var user = _context.Users.FirstOrDefault(user => user.Username == username);
 
             bool flag = true;
@@ -49,6 +51,7 @@ namespace TimeCo.BLL.Services
             _vacationRepository.AddVacation(vacation);
         }
 
+        // Method for approving vacation by admin
         public void ApproveVacation(int id) 
         {
             using (var context = new TimeCoContext())
@@ -65,6 +68,7 @@ namespace TimeCo.BLL.Services
             }
         }
 
+        // Method for denying vacation by admin
         public void DenyVacation(int id)
         {
             using (var context = new TimeCoContext()) 
@@ -79,7 +83,7 @@ namespace TimeCo.BLL.Services
             }
         }
 
-
+        // Method for returning all vacations that are in pending status
         public List<VacationDTO> GetPendingVacations()
         {
             using (_context)
@@ -101,6 +105,7 @@ namespace TimeCo.BLL.Services
             }
         }
 
+        // Method for returning user's main vacation hours
         public double GetUserMainVacHours(string username)
         {
             double mainVacationHours;
@@ -117,7 +122,7 @@ namespace TimeCo.BLL.Services
             return mainVacationHours;
         }
 
-
+        // Method for returning all vacations for given user
         public List<VacationDTO> GetUserVacation(string username)
         {
             using (_context)

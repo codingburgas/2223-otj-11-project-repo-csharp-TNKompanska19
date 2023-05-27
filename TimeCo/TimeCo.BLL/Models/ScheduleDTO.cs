@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeCo.BLL.Models
 {
+    // Model for schedules
     public class ScheduleDTO
     {
         public DateTime StartDate { get; set; }

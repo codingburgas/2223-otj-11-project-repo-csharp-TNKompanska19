@@ -9,8 +9,11 @@ namespace test.Menus
 {
     public class MenuAccess
     {
+        // Private fields
         private Figures _figures;
         private RegistrationForm _registrationForm;
+
+        // Constructor
         public MenuAccess()
         {
             _figures = new Figures();
@@ -41,6 +44,7 @@ namespace test.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -50,6 +54,7 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -59,10 +64,12 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // Login option
                         case 1:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -70,6 +77,7 @@ namespace test.Menus
                             _figures.Border(107, 0, 51);
                             _registrationForm.Login();
                             break;
+                        // Change password option
                         case 2:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -77,6 +85,7 @@ namespace test.Menus
                             _figures.Border(107, 0, 51);
                             _registrationForm.ChangePassword();
                             break;
+                        // Exit option
                         case 3:
                             Environment.Exit(1);
                             break;

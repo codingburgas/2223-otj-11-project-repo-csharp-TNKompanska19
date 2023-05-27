@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeCo.BLL.Models
 {
+    // Model for vacations
     public class VacationDTO
     {
         public int Id { get; set; }

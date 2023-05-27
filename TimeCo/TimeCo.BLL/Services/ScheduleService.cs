@@ -14,9 +14,12 @@ namespace TimeCo.BLL.Services
 {
     public class ScheduleService
     {
+        // Private fields
         private TimeCoContext _context;
         private ScheduleRepository _scheduleRepository;
         private TimeCo.Utilities.Converter _converter;
+
+        // Constructor
         public ScheduleService()
         {
             _context = new TimeCoContext();
@@ -24,6 +27,7 @@ namespace TimeCo.BLL.Services
             _converter = new TimeCo.Utilities.Converter();
         }
 
+        // Method for assigning schedule to user
         public void AddUserSchedule (string userShift, string startDate, string endDate, string startHour, string endHour, string username) 
         {
 
@@ -42,6 +46,7 @@ namespace TimeCo.BLL.Services
             _scheduleRepository.AddSchedule(schedule);
         }
 
+        // Method for returning the user's schedule
         public List<ScheduleDTO> GetUserSchedule(string username)
         {
             using (_context)
@@ -62,6 +67,7 @@ namespace TimeCo.BLL.Services
             }
         }
 
+        // Method for returning the colleagues' schedules
         public List<ScheduleDTO> GetCollsSchedule(string username)
         {
             using (var context = new TimeCoContext())

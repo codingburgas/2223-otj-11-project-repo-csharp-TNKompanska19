@@ -14,6 +14,7 @@ namespace TimeCo.Utilities
         const int iterations = 350000;
         HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
 
+        // Method for hashing password
         public string HashPassword(string password)
         {
             var hash = Rfc2898DeriveBytes.Pbkdf2(
@@ -26,7 +27,7 @@ namespace TimeCo.Utilities
             return Convert.ToHexString(hash);
         }
 
-
+        // Method for verifying hashed password
         public bool VerifyPassword(string password, string hashedPassword)
         {
             var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(

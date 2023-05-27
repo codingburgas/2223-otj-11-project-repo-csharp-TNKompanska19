@@ -11,26 +11,18 @@ namespace TimeCo.DAL.Repositories
 {
     public class ScheduleRepository
     {
+        // Private fields
         private TimeCoContext _context;
         private UserRepository _userRepository;
+
+        // Constructor
         public ScheduleRepository()
         {
             _context = new TimeCoContext();
             _userRepository = new UserRepository();
         }
 
-        public List<Schedule> GetUserSchedule(string username)
-        {
-            User user = _userRepository.GetUser(username);
-
-            return _context.Schedules.Where(x => x.UserId == user.Id).ToList();
-        }
-
-        public Schedule GetSchedule(int id)
-        {
-            return _context.Schedules.FirstOrDefault(x => x.Id == id);
-        }
-
+        // Method for adding schedule
         public void AddSchedule(Schedule schedule)
         {
             _context.Schedules.Add(schedule);

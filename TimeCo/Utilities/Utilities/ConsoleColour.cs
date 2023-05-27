@@ -8,6 +8,7 @@ namespace TimeCo.Utilities
 {
     public class ConsoleColour
     {
+        // Method for colouring text by given colour
         public ConsoleColor TextColour(string colorString)
         { 
             ConsoleColor color;

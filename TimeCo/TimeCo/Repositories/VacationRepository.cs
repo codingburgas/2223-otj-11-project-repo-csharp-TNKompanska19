@@ -13,27 +13,18 @@ namespace TimeCo.DAL.Repositories
 {
     public class VacationRepository
     {
+        // Private fields
         private TimeCoContext _context;
         private UserRepository _userRepository;
 
+        // Constructor
         public VacationRepository()
         {
             _context = new TimeCoContext();
             _userRepository = new UserRepository();
         }
 
-        public Vacation GetUserVacation(string username)
-        {
-            User user = _userRepository.GetUser(username);
-
-            return _context.Vacations.Where(x => x.UserId == user.Id).FirstOrDefault();
-        }
-
-        public List<Vacation> GetPendingVacationList()
-        {
-            return _context.Vacations.Where(x => x.Status == "Pending").ToList();
-        }
-
+        // Method for adding vacation
         public void AddVacation(Vacation vacation)
         {
             _context.Vacations.Add(vacation);
@@ -41,6 +32,7 @@ namespace TimeCo.DAL.Repositories
             _context.SaveChanges();
         }
 
+        // Method for updating vacation
         public void UpdateVacation(Vacation vacation)
         {
             _context.Vacations.Update(vacation);

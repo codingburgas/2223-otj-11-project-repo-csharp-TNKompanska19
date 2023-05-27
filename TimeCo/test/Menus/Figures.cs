@@ -8,12 +8,16 @@ namespace test.Menus
 {
     public class Figures
     {
+        // Private field
         private TimeCo.Utilities.ConsoleColour _consoleColour;
 
+        // Constructor
         public Figures() 
         {
             _consoleColour = new TimeCo.Utilities.ConsoleColour();
         }
+
+        // Method for displaying computer figure
         public void ComputerFigure(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
@@ -57,6 +61,7 @@ namespace test.Menus
             Console.WriteLine ("/C=_____________________/_/");
         }
 
+        // Method for displaying app's label
         public void TimeCoLabel(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -75,6 +80,7 @@ namespace test.Menus
             Console.WriteLine("    |_|  |_|_| |_| |_|\\___|\\_____\\___/ ");
         }
 
+        // Method for displaying team figure
         public void TeamFigure(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
@@ -114,6 +120,7 @@ namespace test.Menus
             Console.WriteLine( "             @@@@ @@@@");
         }
 
+        // Method for displaying button
         public void Button(int x, int y, string colour)
         {
             Console.ForegroundColor = _consoleColour.TextColour(colour);
@@ -127,12 +134,15 @@ namespace test.Menus
             Console.WriteLine(" \\___________________/");
         }
 
+        // Method for displaying text in the button
         public void TextInButton(int x, int y, string text, string colour)
         {
             Console.ForegroundColor = _consoleColour.TextColour(colour);
             Console.SetCursorPosition(x, y);
             Console.WriteLine(text);
         }
+
+        // Method for displaying the borders
         public void Border(int x, int y, int n)
         {
 

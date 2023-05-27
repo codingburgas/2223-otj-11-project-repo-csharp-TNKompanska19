@@ -11,23 +11,22 @@ namespace TimeCo.PL.Menus
 {
     public class UserView
     {
-        //private TimeCo.BLL.Services.DepartmentService _departmentService;
-        //private TimeCo.BLL.Services.UserService _userService;
+        // Private fields
         private TimeCo.BLL.Services.ScheduleService _scheduleService;
         private TimeCo.BLL.Services.VacationService _vacationService;
         private TimeCo.Utilities.Converter _converter;
-
         private Figures _figures;
+
+        // Constructor
         public UserView()
         {
-            //_departmentService = new TimeCo.BLL.Services.DepartmentService();
-            //_userService = new TimeCo.BLL.Services.UserService();
             _scheduleService = new TimeCo.BLL.Services.ScheduleService();
             _vacationService = new TimeCo.BLL.Services.VacationService();
             _converter = new TimeCo.Utilities.Converter();
             _figures = new Figures();
         }
 
+        // Method for displaying user options for schedule
         public void UserPanelScheduleOptions(string username)
         {
             int selectedOption = 1;
@@ -51,7 +50,7 @@ namespace TimeCo.PL.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -61,6 +60,7 @@ namespace TimeCo.PL.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -70,10 +70,12 @@ namespace TimeCo.PL.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // Option for viewing schedule
                         case 1:
                             {
                                 Console.Clear();
@@ -91,6 +93,7 @@ namespace TimeCo.PL.Menus
                                 Console.ReadLine();
                             }
                             break;
+                        // Option for viewing colleagues' schedule
                         case 2:
                             {
                                 Console.Clear();
@@ -112,6 +115,7 @@ namespace TimeCo.PL.Menus
                     }
                 }
 
+                // Pressing escape
                 else if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     UserPanelOptions(username);
@@ -120,6 +124,7 @@ namespace TimeCo.PL.Menus
             }
         }
 
+        // Method for displaying user options for vacation
         public void UserPanelVacationOptions(string username)
         {
             int selectedOption = 1;
@@ -143,7 +148,7 @@ namespace TimeCo.PL.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -153,6 +158,7 @@ namespace TimeCo.PL.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -162,10 +168,12 @@ namespace TimeCo.PL.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // Option for requesting a vacation
                         case 1:
                             {
                                 Console.Clear();
@@ -197,6 +205,7 @@ namespace TimeCo.PL.Menus
 
                             }
                             break;
+                        // Option for viewing vacations
                         case 2:
                             {
                                 Console.Clear();
@@ -214,6 +223,7 @@ namespace TimeCo.PL.Menus
                                 Console.ReadLine();
                             }
                             break;
+                        // Option for viewing the left hours main vacation
                         case 3:
                             {
                                 Console.Clear();
@@ -231,6 +241,7 @@ namespace TimeCo.PL.Menus
                     }
                 }
 
+                // Pressing escape
                 else if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     UserPanelOptions(username);
@@ -239,6 +250,7 @@ namespace TimeCo.PL.Menus
             }
         }
 
+        // Method for displaying user options
         public void UserPanelOptions(string username)
         {
             int selectedOption = 1;
@@ -260,7 +272,7 @@ namespace TimeCo.PL.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -270,6 +282,7 @@ namespace TimeCo.PL.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -279,10 +292,12 @@ namespace TimeCo.PL.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // Schedule options
                         case 1:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -291,6 +306,7 @@ namespace TimeCo.PL.Menus
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             UserPanelScheduleOptions(username);
                             break;
+                        // Vacation options
                         case 2:
                             Console.Clear();
                             _figures.Border(0, 0, 51);

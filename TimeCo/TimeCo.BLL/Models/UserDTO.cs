@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeCo.BLL.Models
 {
+    // Model for users
     public class UserDTO
     {
         public string FirstName { get; set; }

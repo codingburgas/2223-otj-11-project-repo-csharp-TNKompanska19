@@ -8,18 +8,21 @@ using TimeCo.DAL.Repositories;
 using TimeCo.BLL.Models;
 using static System.Formats.Asn1.AsnWriter;
 using Microsoft.AspNetCore.Mvc.Internal;
+using TimeCo.DAL.Entities;
 
 namespace test.Menus
 {
     public class AdminView
     {
+        // Private fields
         private TimeCo.BLL.Services.DepartmentService _departmentService;
         private TimeCo.BLL.Services.UserService _userService;
         private TimeCo.BLL.Services.ScheduleService _scheduleService;
         private TimeCo.BLL.Services.VacationService _vacationService;
         private TimeCo.Utilities.Converter _converter;
-
         private Figures _figures;
+
+        // Constructor
         public AdminView()
         {
             _departmentService = new TimeCo.BLL.Services.DepartmentService();
@@ -30,6 +33,7 @@ namespace test.Menus
             _figures = new Figures();
         }
 
+        // Method for displaying admin options for user
         public void AdminPanelUserOptions(string username)
 		{
             int selectedOption = 1;
@@ -56,7 +60,7 @@ namespace test.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -66,6 +70,7 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -75,10 +80,12 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // Option for making user an admin
                         case 1:
                             {
                                 Console.Clear();
@@ -97,6 +104,7 @@ namespace test.Menus
                                 AdminPanelOptions(username);
                             }
                             break;
+                        // Option for editing user
                         case 2:
                             {
                                 Console.Clear();
@@ -128,6 +136,7 @@ namespace test.Menus
                                 AdminPanelOptions(username);
                             }
                             break;
+                        // Option for adding user
                         case 3:
                             {
                                 Console.Clear();
@@ -168,6 +177,7 @@ namespace test.Menus
                                 AdminPanelOptions(username);
                             }
                             break;
+                        // Option for viewing all users
                         case 4:
                             {
                                 Console.Clear();
@@ -176,12 +186,19 @@ namespace test.Menus
                                 _figures.Border(107, 0, 51);
                                 Parallel.For(0, 4, (i) =>
                                 {
-                                    _userService.GetAllUsers();
+                                    var userList = _userService.GetAllUsers();
+                                    int x = 30, y = 10;
+                                    foreach (User user in userList)
+                                    {
+                                        Console.SetCursorPosition(x, y);
+                                        Console.WriteLine($"FirstName: {user.FirstName}, LastName: {user.LastName}, Username: {user.Username}");
+                                        y++;
+                                    }
                                 });
-                                //TimeCo.BLL.Services.UserService.GetAllUsers();
                                 Console.ReadLine();
                             }
                             break;
+                        // Option for adding user to department
                         case 5:
                             {
                                 Console.Clear();
@@ -206,6 +223,8 @@ namespace test.Menus
                             break;
                     }
                 }
+
+                // Pressing escape
                 else if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     AdminPanelOptions(username);
@@ -213,6 +232,7 @@ namespace test.Menus
 			}
 		}
 
+        // Method for displaying admin options for department
         public void AdminPanelDepartmentOptions(string username)
         {
             int selectedOption = 1;
@@ -238,7 +258,7 @@ namespace test.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -248,6 +268,7 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -257,10 +278,12 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // Option for viewing all users in a given department
                         case 1:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -280,6 +303,8 @@ namespace test.Menus
                             }
                             Console.ReadLine();
                             break;
+
+                        // Option for editing department
                         case 2:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -304,6 +329,8 @@ namespace test.Menus
                             _figures.Border(107, 0, 51);
                             AdminPanelOptions(username);
                             break;
+
+                        // Option for adding a department
                         case 3:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -319,16 +346,27 @@ namespace test.Menus
                             string description = Console.ReadLine();
                             _departmentService.AddDepartment(departmentName, description);
                             break;
+
+                        // Option for viewing all departments
                         case 4:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
                             _figures.TimeCoLabel(30, 1);
                             _figures.Border(107, 0, 51);
-                            _departmentService.GetAllDepartments();
+                            var departmentList = _departmentService.GetAllDepartments();
+                            int y1 = 15;
+                            foreach (Department department in departmentList)
+                            {
+                                Console.SetCursorPosition(30, y1);
+                                Console.WriteLine($"ID: {department.Id}, Name: {department.Name}, Description: {department.Description}");
+                                y1++;
+                            }
                             Thread.Sleep(8000);
                             break;
                     }
                 }
+
+                // Pressing escape
                 else if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     AdminPanelOptions(username);
@@ -336,6 +374,7 @@ namespace test.Menus
             }
         }
 
+        // Method for displaying admin options for schedule
         public void AdminPanelScheduleOptions(string username)
         {
             int selectedOption = 1;
@@ -359,7 +398,7 @@ namespace test.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -369,6 +408,7 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -378,10 +418,12 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // Option for adding schedule
                         case 1:
                             {
                                 Console.Clear();
@@ -420,6 +462,8 @@ namespace test.Menus
                                 AdminPanelOptions(username);
                             }
                             break;
+
+                        // Optiong for viewing user's schedule
                         case 2:
                             {
                                 Console.Clear();
@@ -444,6 +488,7 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing escape
                 else if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     AdminPanelOptions(username);
@@ -452,7 +497,7 @@ namespace test.Menus
             }
         }
 
-
+        // Method for displaying admin options for vacation
         public void AdminPanelVacationOptions(string username)
         {
             int selectedOption = 1;
@@ -476,7 +521,7 @@ namespace test.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -486,6 +531,7 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -495,10 +541,12 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // Option for approving or denying a user's vacation
                         case 1:
                             {
                                 Console.Clear();
@@ -536,6 +584,7 @@ namespace test.Menus
                                 }
                             }
                             break;
+                        // Option for viewing user's vacation
                         case 2:
                             {
                                 Console.Clear();
@@ -560,6 +609,7 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     AdminPanelOptions(username);
@@ -568,6 +618,7 @@ namespace test.Menus
             }
         }
 
+        // Method for displaying admin options
         public void AdminPanelOptions(string username)
         {
             int selectedOption = 1;
@@ -592,7 +643,7 @@ namespace test.Menus
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-
+                // Pressing up arrow
                 if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
                     selectedOption--;
@@ -602,6 +653,7 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing down arrow
                 else if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
                     selectedOption++;
@@ -611,10 +663,12 @@ namespace test.Menus
                     }
                 }
 
+                // Pressing enter
                 else if (keyInfo.Key == ConsoleKey.Enter)
                 {
                     switch (selectedOption)
                     {
+                        // User options
                         case 1:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -623,6 +677,7 @@ namespace test.Menus
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             AdminPanelUserOptions(username);
                             break;
+                        // Department options
                         case 2:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -631,6 +686,7 @@ namespace test.Menus
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             AdminPanelDepartmentOptions(username);
                             break;
+                        // Schedule options
                         case 3:
                             Console.Clear();
                             _figures.Border(0, 0, 51);
@@ -639,6 +695,7 @@ namespace test.Menus
                             Console.ForegroundColor = ConsoleColor.Cyan;
                             AdminPanelScheduleOptions(username);
                             break;
+                        // Vacation options
 					    case 4:
                             Console.Clear();
                             _figures.Border(0, 0, 51);

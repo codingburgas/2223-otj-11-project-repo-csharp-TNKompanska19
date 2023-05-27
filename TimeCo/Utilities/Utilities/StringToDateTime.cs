@@ -8,34 +8,40 @@ namespace TimeCo.Utilities
 {
     public class Converter
     {
+        // Method for returning only the date from DateTime variable
         public string DateOnly(DateTime dateTime)
         {
             DateTime dateOnly = dateTime.Date;
             return dateOnly.ToString("yyyy-MM-dd");
         }
        
+        // Method for parsing string to DateTime
         public DateTime ToDate(string dateString)
         {
             DateTime date = DateTime.ParseExact(dateString, "dd-MM-yyyy", null);
             return date;
         }
 
+        // Method for parsing string to TimeSpan
         public TimeSpan ToHour(string timeString)
         {
             TimeSpan time = TimeSpan.ParseExact(timeString, "h\\:mm", null);
             return time;
         }
 
+        // Method for getting current time
         public DateTime GetCurrentTime()
         {
             return DateTime.Now;
         }
 
+        // Method for getting day of the week
         public string GetDayOfWeek(DateTime date)
         {
             return date.ToString("dddd");
         }
 
+        // Method for getting vacation's days
         public double GetDaysVacation(DateTime startDate, DateTime endDate)
         {
             int counter = 0;
