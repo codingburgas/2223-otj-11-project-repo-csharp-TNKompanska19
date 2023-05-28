@@ -22,8 +22,11 @@ namespace TimeCo.DAL.Repositories
 
         // Method for returning all users
         public  List<User> GetUsersList()
-        { 
-            return _context.Users.Select(x => x).ToList();
+        {
+            using (var context = new TimeCoContext()) // Replace YourDbContext with your actual DbContext class
+            {
+                return context.Users.Select(x => x).ToList();
+            }
         }
 
         // Method for returning user by given username

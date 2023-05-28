@@ -184,17 +184,14 @@ namespace test.Menus
                                 _figures.Border(0, 0, 51);
                                 _figures.TimeCoLabel(30, 1);
                                 _figures.Border(107, 0, 51);
-                                Parallel.For(0, 4, (i) =>
+                                var userList = _userService.GetAllUsers();
+                                int x = 30, y = 10;
+                                foreach (User user in userList)
                                 {
-                                    var userList = _userService.GetAllUsers();
-                                    int x = 30, y = 10;
-                                    foreach (User user in userList)
-                                    {
-                                        Console.SetCursorPosition(x, y);
-                                        Console.WriteLine($"FirstName: {user.FirstName}, LastName: {user.LastName}, Username: {user.Username}");
-                                        y++;
-                                    }
-                                });
+                                    Console.SetCursorPosition(x, y);
+                                    Console.WriteLine($"FirstName: {user.FirstName}, LastName: {user.LastName}, Username: {user.Username}");
+                                    y++;
+                                }
                                 Console.ReadLine();
                             }
                             break;
@@ -293,11 +290,15 @@ namespace test.Menus
                             Console.WriteLine("Enter the name of the department in which you want to see the users:");
                             Console.SetCursorPosition(25, 22);
                             string name = Console.ReadLine();
+                            Console.Clear();
+                            _figures.Border(0, 0, 51);
+                            _figures.TimeCoLabel(30, 1);
+                            _figures.Border(107, 0, 51);
                             var result = _departmentService.GetUsersDepartments(name);
                             int y = 20;
                             foreach (var item in result)
                             {
-                                Console.SetCursorPosition(25, y);
+                                Console.SetCursorPosition(15, y);
                                 Console.WriteLine("{0}: {1} {2}", item.DepartmentName, item.FirstName, item.LastName);
                                 y++;
                             }
@@ -357,11 +358,11 @@ namespace test.Menus
                             int y1 = 15;
                             foreach (Department department in departmentList)
                             {
-                                Console.SetCursorPosition(30, y1);
+                                Console.SetCursorPosition(15, y1);
                                 Console.WriteLine($"ID: {department.Id}, Name: {department.Name}, Description: {department.Description}");
                                 y1++;
                             }
-                            Thread.Sleep(8000);
+                            Console.ReadLine();
                             break;
                     }
                 }

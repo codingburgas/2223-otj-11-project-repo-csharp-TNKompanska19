@@ -52,18 +52,27 @@ namespace TimeCo.BLL.Services
         }
 
         // Method for approving vacation by admin
-        public void ApproveVacation(int id) 
+
+        public void ApproveVacation(int id)
         {
             using (var context = new TimeCoContext())
             {
                 var vacation = context.Vacations.FirstOrDefault(item => item.Id == id);
-                var user = context.Users.FirstOrDefault(item => item.Id == vacation.UserId);
                 if (vacation != null)
                 {
                     vacation.Status = "Approved";
-                    user.MainVacationHours -= _converter.GetDaysVacation(vacation.StartDate, vacation.EndDate)*8;
-                    _vacationRepository.UpdateVacation(vacation);
-                    _userRepository.UpdateUser(user);
+
+                    var user = context.Users.FirstOrDefault(item => item.Id == vacation.UserId);
+                    if (user != null)
+                    {
+                        int vacationDays = (int)_converter.GetDaysVacation(vacation.StartDate, vacation.EndDate);
+                        user.MainVacationHours -= vacationDays * 8;
+
+                        // Update the vacation and user entities in the context
+                        context.Update(vacation);
+                        context.Update(user);
+                        context.SaveChanges();
+                    }
                 }
             }
         }
@@ -137,6 +146,7 @@ namespace TimeCo.BLL.Services
                                   Username = user.Username,
                                   StartDate = vacation.StartDate,
                                   EndDate = vacation.EndDate,
+                                  Status = vacation.Status
                               };
 
                 List<VacationDTO> result = results.ToList();

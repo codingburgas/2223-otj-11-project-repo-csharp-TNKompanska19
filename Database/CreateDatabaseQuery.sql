@@ -47,15 +47,27 @@ Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 [Status] VARCHAR(50) NOT NULL,
 StartDate DATETIME2 NOT NULL,
 EndDate DATETIME2 NOT NULL,
-isMainVacation FLOAT NOT NULL,
+isMainVacation BIT NOT NULL,
 UserID INT NOT NULL,
 FOREIGN KEY (UserID) REFERENCES Users(Id)
 )
 
+
+
 INSERT INTO Roles([Name], [Description])
-VALUES ('Admin', 'administrator')
+VALUES ('Admin', 'Administrator - Boss')
+
+INSERT INTO Roles([Name], [Description])
+VALUES ('Standard', 'Standard user - Worker')
 
 INSERT INTO Departments([Name], [Description])
-VALUES ('Engineering', 'neshto')
+VALUES ('Engineering', 'Technical division for engineering work')
 
-SELECT * FROM Users
+INSERT INTO Departments([Name], [Description])
+VALUES ('Hardware', 'Division handling physical computer components.')
+
+INSERT INTO Users (FirstName, LastName, Email, [Password], Username, CreatedAt, ModifiedAt, RoleID, DepartmentID)
+VALUES ('Teodora', 'Kompanska', 'tkompanska@gmail.com', '54C645DE9376C8BC40416CBF368CD12185902FB37A6AD079507D6B829711DF3E66023ED6967D0B9AC61E066CC38794C281F4D3D1FF9E7E06435302F30C7696DE', 'kompanska', GETDATE(), GETDATE(), 1, 1)
+
+INSERT INTO Users (FirstName, LastName, Email, [Password], Username, CreatedAt, ModifiedAt, RoleID, DepartmentID)
+VALUES ('Maria', 'Ivanova', 'mivanova@gmail.com', '54C645DE9376C8BC40416CBF368CD12185902FB37A6AD079507D6B829711DF3E66023ED6967D0B9AC61E066CC38794C281F4D3D1FF9E7E06435302F30C7696DE', 'mivanova', GETDATE(), GETDATE(), 2, 1)

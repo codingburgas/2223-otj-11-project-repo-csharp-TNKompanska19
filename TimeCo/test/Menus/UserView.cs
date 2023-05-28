@@ -213,11 +213,11 @@ namespace TimeCo.PL.Menus
                                 _figures.TimeCoLabel(30, 1);
                                 _figures.Border(107, 0, 51);
                                 var result = _vacationService.GetUserVacation(username);
-                                int y = 20;
+                                int y = 15;
                                 foreach (var item in result)
                                 {
-                                    Console.SetCursorPosition(25, y);
-                                    Console.WriteLine("Dates: {0} - {1}; Name: {2}, Description: {3}", _converter.DateOnly(item.StartDate), _converter.DateOnly(item.EndDate), item.Name, item.Description);
+                                    Console.SetCursorPosition(10, y);
+                                    Console.WriteLine("Dates: {0} - {1}; Name: {2}, Description: {3}, Status: {4}", _converter.DateOnly(item.StartDate), _converter.DateOnly(item.EndDate), item.Name, item.Description, item.Status);
                                     y++;
                                 }
                                 Console.ReadLine();
