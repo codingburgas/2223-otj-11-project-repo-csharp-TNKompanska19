@@ -95,6 +95,16 @@ namespace TimeCo.BLL.Services
 
         }
 
+        // Method for changing user's password 
+        public void ChangePass(string username, string password)
+        {
+            var user = _context.Users.FirstOrDefault(user => user.Username == username);
+            user.Password = password; 
+
+            _userRepository.UpdateUser(user);
+
+        }
+
         // Method for adding user to department
         public void AddUserToDepartment(string username, string departmentName)
         {

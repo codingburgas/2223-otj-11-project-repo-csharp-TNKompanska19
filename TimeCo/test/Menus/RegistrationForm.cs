@@ -91,7 +91,8 @@ namespace test.Menus
                 Console.WriteLine("ENTER NEW PASSWORD: ");
                 Console.SetCursorPosition(45, 28);
                 string newPass = Console.ReadLine();
-                string newPassword = _passwordHash.HashPassword(pass);
+                string newPassword = _passwordHash.HashPassword(newPass);
+                _userService.ChangePass(username, newPassword);
             }
             // If user is not valid
             else
